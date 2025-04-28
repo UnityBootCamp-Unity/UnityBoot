@@ -11,12 +11,12 @@ using UnityEngine;
 
 
 
-public class Monster : MonoBehaviour
+public class Monster : Unit
 {
     //유니티 인스펙터에해당 필드 값에 대한 범위 설정
     [Range(1,5)] public float speed;
 
-    Animator animator;
+    /* Animator animator;*/
 
     //몬스터 클래스에서 상황에 맞게 애니메이션을 실행시키려 합니다.
     //이때 필요한 데이터는 무엇일까요?
@@ -54,14 +54,49 @@ public class Monster : MonoBehaviour
         isSpawn = true;
     }
 
-    private void Start()
+    protected override void Start()
     {
-        animator = GetComponent<Animator>();
-        //코드 내에서 Animator로 인식하고, Animator의 필드나 메소드를
-        //사용할 수 있습니다.
-        StartCoroutine(OnSpawn());
+        base.Start(); //Unity의 Start 호출
+        //Monster가 실행할 Start 작업 구현
+        //MonsterInit();
 
+        //기본 체력은 5로 설정한다.
+        HP = 5.0f;
+        GetDamage(5.0f);
     }
+
+    public GameObject effect; //이펙트 연결
+
+    public void GetDamage(double dmg)
+    {
+        HP -= dmg;//유닛의 체력을 데미지만큼 깎는다.
+        if (HP <= 0)
+        {
+            var eff = Resources.Load<GameObject>(effect.name);
+            //등록한 이펙트의 이름으로 로드한다.
+            Instantiate(eff, transform.position, Quaternion.identity);
+            //로드한 값을 생성한다.
+
+            /*//이펙트를 몬스터의 좌표 위치로 생성
+            var effect = Manager.Pool.pooling("Effect01").get(
+                (value) =>
+                {
+                    value.transform.position = new Vector3(transform.position.x,
+                        transform.position.y, transform.position.z);
+                });*/
+        }
+    }
+
+    public void MonsterInit() => StartCoroutine(OnSpawn());
+
+
+    /*private void Start()
+    {
+        *//*animator = GetComponent<Animator>();
+        //코드 내에서 Animator로 인식하고, Animator의 필드나 메소드를
+        //사용할 수 있습니다.*//*
+        StartCoroutine(OnSpawn());
+    }*/
 
     //유니티 라이프 싸이클 함수 // 프레임마다 한번씩 반복
     private void Update()
@@ -105,7 +140,7 @@ public class Monster : MonoBehaviour
         #endregion
     }
 
-    private void SetAnimator(string temp)
+/*    private void SetAnimator(string temp)
     {
         //기본 파라미터에 대한 reset
         //유니티 Animator에 만들어둔 parameter의 이름을 정확하게 기재합니다.
@@ -114,5 +149,5 @@ public class Monster : MonoBehaviour
 
         //인자로 전달받은 값을 true로 설정합니다.
         animator.SetBool(temp, true);
-    }
+    }*/
 }
