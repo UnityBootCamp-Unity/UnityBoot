@@ -207,6 +207,7 @@ MonoBehaviour:
   A_RANGE: 0
   T_RANGE: 0
   speed: 1
+  effect: {fileID: 725748389856807714, guid: d7d3e2bdaac4c2f40afe648b637ff0b1, type: 3}
 --- !u!1 &3558744111086557591
 GameObject:
   m_ObjectHideFlags: 0

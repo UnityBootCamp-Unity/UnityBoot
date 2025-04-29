@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\unityboot\\unityboot\\basicproject2\\assets\\scripts\\upweapon\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\unityboot\\unityboot\\basicproject2\\assets\\scripts\\upweapon\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\upweapon\\upgrade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\assets\\scripts\\upweapon\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\upweapon\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\unityboot\\unityboot\\basicproject2\\assets\\scripts\\unityevenetexample02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\assets\\scripts\\unityevenetexample02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6F0396EB-ADDE-32D6-92DA-F61C69E4FE1E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\unityevenetexample02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -27,6 +31,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Upgrade.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UpWeapon\\Upgrade.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UpWeapon\\Upgrade.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UpWeapon\\Upgrade.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UpWeapon\\Upgrade.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAowF8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T08:07:55.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Weapon.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UpWeapon\\Weapon.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UpWeapon\\Weapon.cs",
@@ -39,25 +56,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UnityEventExample.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UnityEventExample.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UnityEventExample.cs",
               "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UnityEventExample.cs",
               "RelativeToolTip": "Assets\\Scripts\\UnityEventExample.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T07:27:17.915Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UnityEvenetExample02.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UnityEvenetExample02.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UnityEvenetExample02.cs",
               "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\UnityBoot\\UnityBoot\\BasicProject2\\Assets\\Scripts\\UnityEvenetExample02.cs",
               "RelativeToolTip": "Assets\\Scripts\\UnityEvenetExample02.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAhwDQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T07:27:17.201Z",
               "EditorCaption": ""

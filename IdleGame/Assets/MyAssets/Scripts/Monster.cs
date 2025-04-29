@@ -24,6 +24,7 @@ public class Monster : Unit
     //2. Animator (정답)
 
     bool isSpawn = false; //생성 여부
+    bool isDead = false; //살았는지 죽었는지의 여부
 
     //몬스터가 생성됬을때 진행할 작업(연출)
     //서서히 커지는 느낌
@@ -62,28 +63,44 @@ public class Monster : Unit
 
         //기본 체력은 5로 설정한다.
         HP = 5.0f;
-        GetDamage(5.0f);
+        //GetDamage(5.0f);
     }
 
     public GameObject effect; //이펙트 연결
 
     public void GetDamage(double dmg)
     {
+        //죽었다면 이 작업이 호출되지 않게 합니다.
+        if (isDead) return;
+
+        //HitText 처리
+        Manager.Pool.pooling("Hit").get((value) =>
+        {
+            value.GetComponent<HitText>().Init(transform.position, dmg);
+        });
+
         HP -= dmg;//유닛의 체력을 데미지만큼 깎는다.
+
         if (HP <= 0)
         {
-            var eff = Resources.Load<GameObject>(effect.name);
+            /*var eff = Resources.Load<GameObject>(effect.name);
             //등록한 이펙트의 이름으로 로드한다.
-            Instantiate(eff, transform.position, Quaternion.identity);
+            Instantiate(eff, transform.position, Quaternion.identity);*/
             //로드한 값을 생성한다.
 
-            /*//이펙트를 몬스터의 좌표 위치로 생성
+            //이펙트를 몬스터의 좌표 위치로 생성
             var effect = Manager.Pool.pooling("Effect01").get(
                 (value) =>
                 {
                     value.transform.position = new Vector3(transform.position.x,
                         transform.position.y, transform.position.z);
-                });*/
+                });
+
+            //코인 드랍 기능 추가
+            Manager.Pool.pooling("Coin_Move").get(value =>
+            {
+                value.GetComponent<CoinMove>().Init(transform.position);
+            });
         }
     }
 
@@ -116,6 +133,12 @@ public class Monster : Unit
         {
             transform.position = Vector3.MoveTowards(transform.position,Vector3.zero, Time.deltaTime * speed);
             SetAnimator("IsMOVE"); //이동 모드로 변경합니다.
+        }
+
+        //공격 테스트
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            GetDamage(1);
         }
 
         #region 필기

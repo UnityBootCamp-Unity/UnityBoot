@@ -57,13 +57,15 @@ public class Spawner : MonoBehaviour
                 value.GetComponent<Monster>().MonsterInit();
                 value.transform.position = pos;
                 value.transform.LookAt(Vector3.zero);
+                var go = value.GetComponent<Monster>();
+                monster_list.Add(go);
             });
 
             //Quaternion.identity : 회전 값 0
             //기존 형태를 그대로 생성하는 경우에 사용하는 값
 
             //반납
-            StartCoroutine(CRelease(go));
+            //StartCoroutine(CRelease(go));
         }
         //yield return : 일정 시점 후 다시 돌아오는 코드
         //WaitForSeconds(float t) : 작성한 값 만큼 대기합니다.(초 단위)

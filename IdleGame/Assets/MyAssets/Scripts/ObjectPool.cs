@@ -25,6 +25,7 @@ public class ObjectPool : IPool
     {
         pool.Enqueue(obj); //풀에 오브젝트를 다시 등록합니다.
         obj.transform.parent = Trans;
+        // obj.transform.SetParent(Trans, false);
         //현재 오브젝트의 부모 트랜스폼 = Trans
         obj.SetActive(false); //비활성화
         if (action != null)
