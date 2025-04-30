@@ -35,8 +35,9 @@ public class HitText : MonoBehaviour
         message.text = value.ToString();
 
         //해당 cs 파일을 가진 UI를 B_Canvas(기본 캔버스) 쪽에 연결
-        transform.parent = B_Canvas.instance.transform;
+        // transform.parent = B_Canvas.instance.transform;
         // transform.SetParent(B_Canvas.instance.transform, false); // 경고 없애는 거
+        transform.parent = B_Canvas.instance.GetLayer(1);
 
         //일정 시간 뒤에 반납을 진행
         //Release();

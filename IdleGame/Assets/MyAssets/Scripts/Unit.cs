@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
 
     [Header("타겟 위치")]
     public Transform target;
+    public Transform attack_transform;
 
     protected virtual void Start()
     {
@@ -25,12 +26,30 @@ public class Unit : MonoBehaviour
         //사용할 수 있습니다.
     }
 
+    protected virtual void AttackObject()
+    {
+        Debug.Log("이벤트 테스트");
+        Manager.Pool.pooling("Attack").get((value) =>
+        {
+            value.transform.position = attack_transform.position;
+            //일반적으로 무기의 맨 앞 부분쪽을 위치로 잡습니다.
+            value.GetComponent<Attack>().Init(target, 1, "ATK01");
+        });
+    }
+
     protected void SetAnimator(string temp)
     {
+
         //[공격]
         if (temp == "isATTACK")
         {
-            animator.SetTrigger("IsATTACK");
+            if (target.gameObject.activeSelf == false)
+            {
+                animator.ResetTrigger("isATTACK");
+                target = null;
+                return;
+            }
+            animator.SetTrigger("isATTACK");
             //트리거를 작동시키면 바로 실행
             return;
         }
@@ -38,8 +57,8 @@ public class Unit : MonoBehaviour
         //[이동과 대기]
         //기본 파라미터에 대한 reset
         //유니티 Animator에 만들어둔 parameter의 이름을 정확하게 기재합니다.
-        animator.SetBool("IsIDLE", false);
-        animator.SetBool("IsMOVE", false);
+        animator.SetBool("isIDLE", false);
+        animator.SetBool("isMOVE", false);
 
         //인자로 전달받은 값을 true로 설정합니다.
         animator.SetBool(temp, true);

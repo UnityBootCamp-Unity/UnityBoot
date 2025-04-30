@@ -101,6 +101,23 @@ public class Monster : Unit
             {
                 value.GetComponent<CoinMove>().Init(transform.position);
             });
+
+            /*isDead = true;
+            StartCoroutine(MonsterRelease());*/
+
+            //아이템 드랍 기능 추가
+            //현재 아이템 테이블이 따로 구현이 안되있기 때문에 고정 값 설정
+            //변수를 만들어서 편하게 수정하시거나, 이후에 아이템 관련 데이터 추가해서 그 값만큼 처리하게 수정
+            for(int i =0; i < 4; i++)
+            {
+                Manager.Pool.pooling("ItemObject").get((value) =>
+                {
+                    value.GetComponent<Item_Object>().Init(transform.position);
+                });
+            }
+            //몬스터 반납
+            Manager.Pool.pool_dict["Monster"].Release(gameObject);
+
         }
     }
 
@@ -135,11 +152,11 @@ public class Monster : Unit
             SetAnimator("IsMOVE"); //이동 모드로 변경합니다.
         }
 
-        //공격 테스트
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            GetDamage(1);
-        }
+        ////공격 테스트
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    GetDamage(1);
+        //}
 
         #region 필기
         //1. transform.position : 현재 오브젝트의 위치를 나타냅니다.
@@ -173,4 +190,11 @@ public class Monster : Unit
         //인자로 전달받은 값을 true로 설정합니다.
         animator.SetBool(temp, true);
     }*/
+
+    IEnumerator MonsterRelease()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        Manager.Pool.pool_dict["Monster"].Release(gameObject);
+    }
 }

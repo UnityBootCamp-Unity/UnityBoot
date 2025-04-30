@@ -16,11 +16,12 @@ public class Player : Unit
 
     private void Update()
     {
+        //리스트 -> 배열
         //타겟이 없다?
-        if(target == null)
+        StrikeFirst(Spawner.monster_list.ToArray());
+
+        if (target == null)
         {
-            StrikeFirst(Spawner.monster_list.ToArray());
-            //리스트 -> 배열
 
             //거리 계산
             var targetPos = Vector3.Distance(transform.position, pos);

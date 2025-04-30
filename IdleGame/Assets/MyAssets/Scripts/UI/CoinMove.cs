@@ -36,7 +36,8 @@ public class CoinMove : MonoBehaviour
             // --> 인스펙터 상에서 보이는 posX, posY의 위치
         }
         //캔버스 쪽으로 트랜스폼 연결
-        transform.parent = B_Canvas.instance.transform;
+        // transform.parent = B_Canvas.instance.transform;
+        transform.parent = B_Canvas.instance.GetLayer(0);
 
         //코루틴 작동
         StartCoroutine(Move());
