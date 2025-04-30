@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb13d76d95e8574b8496034d2b8c640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 1
+  count: 3
   spawnTime: 20
 --- !u!4 &624872511
 Transform:

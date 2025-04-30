@@ -45,7 +45,6 @@ public class Unit : MonoBehaviour
         {
             if (target.gameObject.activeSelf == false)
             {
-                animator.ResetTrigger("isATTACK");
                 target = null;
                 return;
             }
@@ -77,7 +76,7 @@ public class Unit : MonoBehaviour
                 transform.position, enemys[i].transform.position);
 
             //최대보다 거리 작다면
-            if(target_distance < max)
+            if(target_distance < max && enemys[i].gameObject.activeSelf == true)
             {
                 //현재의 그 몬스터의 위치가 가장 가까운 거리
                 closet = enemys[i].transform;
