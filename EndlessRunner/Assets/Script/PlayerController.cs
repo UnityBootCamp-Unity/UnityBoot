@@ -13,6 +13,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5.0f;                //플레이어의 이동 속도
     [SerializeField] private float jump = 5.0f;                 //플레이어의 점프 수치
 
+
+    public void SetSpeed(float level)
+    {
+        speed += level;
+        Debug.Log("현재 스피드 : " + speed);
+    }
+
+    public float GetSpeed() => speed;
+
     private bool isJumping = false;
     private bool isSliding = false;
 
