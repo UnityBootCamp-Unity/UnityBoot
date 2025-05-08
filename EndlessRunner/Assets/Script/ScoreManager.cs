@@ -6,6 +6,7 @@ using System;
 public class ScoreManager : MonoBehaviour
 {
     public PlayerController playerController;
+    public DeadManager deadManager;   //죽음 매니저
 
     //점수
     //1. 인게임 내에서 간단하게 사용할거면 필드로 만든다.
@@ -43,9 +44,26 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text levelText;    //현재 레벨
     public TMP_Text perScoreText; //다음 레벨까지의 점수
     public TMP_Text Player_Speed; //플레이어의 이동 속도
+    public TMP_Text HighScore;
+
+    //죽음 상태 체크
+    [SerializeField] private bool DeadCheck = false;
 
     private void Start()
     {
+        //HIGH_SCORE 키가 없다면, 키를 먼저 생성
+        if(PlayerPrefs.HasKey("HIGH_SCORE") == false)
+        {
+            Debug.Log("HIGH_SCORE 키가 갱신되었습니다.");
+            PlayerPrefs.SetInt("HIGH_SCORE", 0);
+        }
+        else
+        {
+            Debug.Log("키가 존재합니다!");
+        }
+
+            //최고 점수 갱신
+            HighScore.text = $"High Score : {PlayerPrefs.GetInt("HIGH_SCORE")}";
         SetTMP_Text();
     }
     //String Format
@@ -56,13 +74,31 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
+        //죽음 상태일 경우 스코어가 더이상 오르지 않습니다.
+        //플레이어와 UI에서 같은 조건으로 처리되고 있을 경우라면
+        //static 형태의 데이터로 처리하는 것도 괜찮습니다.
+        if( DeadCheck)
+        {
+            return;
+        }
+
         if(score >= levelperscore)
         {
             LevelUP();
         }
 
         score += Time.deltaTime; //프레임당 100점
+
         scoreText.text = ((int)score).ToString();
+
+        //score가 하이스코어 값을 넘었을 경우라면 텍스트 변경
+        if(score > PlayerPrefs.GetInt("HIGH_SCORE"))
+        {
+            //해당 코드를 사용하면 계속 프립스 값이 설정되기 때문에 연출로 보여주고, Dead에서 설정 1번으로 처리
+            //PlayerPrefs.SetInt("HIGH_SCORE", (int)score);
+            //HighScore.text = $"High Score : {PlayerPrefs.GetInt("HIGH_SCORE")} ";
+            HighScore.text = ((int)score).ToString() ;
+        }
     }
 
     private void LevelUP()
@@ -81,5 +117,12 @@ public class ScoreManager : MonoBehaviour
         levelText.text = $"leve : {level}";
         perScoreText.text = $"Goal : {levelperscore: #,##0}";
         Player_Speed.text = $"Speed :{playerController.GetSpeed()}";
+    }
+
+    public void OnDead()
+    {
+        DeadCheck = true;
+        //매니저에 점수 전달
+        deadManager.SetScoreText(score);
     }
 }
