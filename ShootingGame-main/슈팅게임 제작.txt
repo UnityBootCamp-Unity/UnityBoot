@@ -1,0 +1,243 @@
+슈팅 게임 제작 프로토 타입 설계
+1. 기능에 대한 구현
+2. 배치 정도만 확인해봄.
+
+1. 해상도 설정
+   Game ->Resolution 640 X 960
+    Mode 2D
+
+2.  캐릭터 설정
+    Cube 생성(캐릭터 샘플)
+    PlayerMovement.cs 생성
+    Cube에 컴포넌트로 연결
+
+3. 총알 제작
+   Capsule 오브젝트 생성
+   Scale 0.2 0.2 0.2
+    --> Cylinder 연결
+          Scale 1.1 0.5 1.1
+    Create Material (Bulletin ,BulletC)
+    BulletIn : Metalic , SmoothMap 설정
+    Bullet(Prefab)
+    Bullet.cs 스크립트 작성
+    Bullet(Prefab)에 컴포넌트로 연결
+
+4. 총알 발사대
+  Player
+   -> Fire
+   Player에 PlayerFire.cs 연결
+Bullet Factory 연결 (Bullet(Prefab))   
+FirePostion 연결     (Fire)
+  ProjectSettings -> Input Manager
+Fire1 :  left ctrl
+ 
+기능 테스트(런타임 환경의 프리팹 사용)
+Create -> 3D -> Cube 생성
+Cube -> Block(Prefab)
+
+Create Empty --> Wall
+Wall.cs 연결
+
+다음 시간 간단하게 오브젝트
+패턴 생성 도전해보기
+
+┼ 모양 생성
+
+다른 모양도 만들어서
+
+과제 제출란에 실행한 이미지
+만 찍어서 올려주세요~
+
+다음 교시에 오전 진도 마무리
+
+5. 적 만들기
+Create -> Sphere (Enemy)
+Enemy.cs 생성 후 연결
+Enemy에 Rigidbody 연결
+use gravity 설정 제거
+
+6. 적 생성 매니저 생성
+Create Empty -> EnemyManager
+EnemyManager.cs 생성 후 연결
+
+7. 확률형 추격 적으로 변경
+
+8. 충돌 감지 영역 생성
+- 총알이 특정 범위를 넘으면 제거
+되도록 처리하기 위한 용도
+ Create Cube(Zone_U)
+    Add Rigidbody
+    isKinematic -> true
+  키네마틱 설정은 물리적인 행동은
+  하지 않도록 처리하는 설정
+  Trigger 달아줄 오브젝트를 대상으로
+  주로 이런 작업을 진행합니다.
+  DestroyZone.cs 생성 후 연결합니다.
+
+  Zone 4개 생성
+  Zone_U   0 15 0
+               0  0  0
+               30 1  1
+  Zone_D    0  -15 0
+                0  0  0
+               30  1  1
+  Zone_L     15 0 0
+                0  0  0
+                1  30 1
+  Zone_R   -15 0 0
+                0  0  0
+                1  30 1
+  
+ 빈 오브젝트 생성(Zone)
+ 위의 Zone들을 연결합니다.
+
+9. 태그와 레이어 달기
+DestroyZone
+Player
+Bullet
+Enemy 레이어 생성
+
+Edit -> Project Settings -> Physics Settings
+
+Layer Collison Matrix
+레이어 간의 충돌 판정을 체크할 수 있는
+기능입니다.
+
+DestroyZone / DestroyZone
+DestroyZone / Player
+Player / Player
+Enemy  / Enemy
+Bullet /Bullet 
+Player / Bullet
+
+10. 트리거 연결
+Zone에 is Trigger 설정 연결
+
+--------------------------------------------------
+캐릭터 이미지 변경
+에셋스토어에서 비행기 선택 후
+배치
+플레이어
+        0 0 0
+     180 0 0 
+    0.2 0.2 0.2
+적
+       0 0 0
+     180 0 180 
+    0.2 0.2 0.2
+
+플레이어와 적에 적합한 스크립트와
+오브젝트를 배치합니다.
+
+적은 프리팹화 진행합니다.
+
+11. 폭발 효과 추가
+    에셋 다운로드
+    Enemy.cs 수정
+
+1. 적의 움직임을 다양하게 연출해보세요.
+
+2. 현재 EnemyManager의 SpawnPoint가
+   비효율적인 상황입니다. 이 부분을
+   개선해주세요.
+
+3. 몬스터의 생성 종류를 다양하게 하셔도
+   좋습니다.
+
+4. 플레이어가 바로 죽지 않게
+   HP를 만들어주시고, 플레이어가 피격
+   당할 경우 충돌 이펙트를 추가해주세요.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
