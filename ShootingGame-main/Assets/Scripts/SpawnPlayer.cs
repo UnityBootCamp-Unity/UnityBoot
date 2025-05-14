@@ -13,7 +13,8 @@ public class SpawnPlayer : MonoBehaviour
 
     private void Spawn()
     {
-        int current_character = PlayerCharacter.Instance.Character;
+        //int current_character = PlayerCharacter.Instance.Character;
+        int current_character = 0;
         character_player = Instantiate(character_list[current_character], spawnPoint.position, spawnPoint.rotation);
     }
 }

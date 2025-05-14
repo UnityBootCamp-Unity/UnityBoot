@@ -225,6 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletFactory: {fileID: 7470932254337723726, guid: 57cb0d0e1483ead4dbad875d3a36f60d, type: 3}
   firePosition: {fileID: 4787787943879934682}
+  poolSize: 10
+  bulletObjectPool: []
 --- !u!114 &7728280807526495675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,13 +270,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6674789564265368483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa4eff5df205cd14aa09dd43b0c8f353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletFactory: {fileID: 7470932254337723726, guid: 57cb0d0e1483ead4dbad875d3a36f60d, type: 3}
   firePosition: {fileID: 4787787943879934682}
+  poolSize: 10
+  bulletObjectPool: []
 --- !u!1 &7624447629027687033
 GameObject:
   m_ObjectHideFlags: 0
