@@ -1,0 +1,22 @@
+{
+    //배열 작성
+    //"키" : [  {키:값}, {키2 : 값2}, ....  ]
+
+    "tip": [
+        {
+            "idx": 0,
+            "contents": "꿀팁 1) 자주 쓰는거 메모장에 빼두세요.",
+            "desc": "적을 내용 없습니다."
+        },
+        {
+            "idx": 1,
+            "contents": "꿀팁 2) 내부 데이터는 Scriptable Object",
+            "desc": "class명 : ScriptableObject"
+        }
+    ],
+
+    "stat": [
+
+    ]
+
+}
