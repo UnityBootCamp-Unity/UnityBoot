@@ -9,6 +9,11 @@ public class BossManager : MonoBehaviour
     public GameObject boss;
     public EnemyManager enemyManager;
 
+    public void Start()
+    {
+        Spawn();
+    }
+
     public void Spawn()
     {
         Instantiate(boss);

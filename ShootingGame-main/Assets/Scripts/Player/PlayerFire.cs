@@ -14,8 +14,10 @@ public class PlayerFire : MonoBehaviour
 
     //오브젝트 풀[Object Pool]
     [Header("오브젝트 풀")]
-    public int poolSize = 10;             //1. 풀의 크기에 대한 설정(총알 개수)
+    public int poolSize = 20;             //1. 풀의 크기에 대한 설정(총알 개수)
     public GameObject[] bulletObjectPool; //2. 오브젝트 풀(배열 / 리스트)
+
+    private float fireCooldown = 0.0f;
 
     private void Start()
     {
@@ -39,9 +41,15 @@ public class PlayerFire : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        fireCooldown -= Time.deltaTime;
+
+        if (fireCooldown <= 0.0f)
         {
-            Shoot();
+            if (Input.GetButton("Fire1"))
+            {
+                Shoot();
+                fireCooldown = 0.5f;
+            }
         }
     }
     
@@ -62,14 +70,16 @@ public class PlayerFire : MonoBehaviour
                 bullet.SetActive(true);
                 //4. 발사 위치 조정
                 bullet.transform.position = firePosition.transform.position;
+
+                //  자식 오브젝트들 모두 다시 켜기
+                for (int j = 0; j < bullet.transform.childCount; j++)
+                {
+                    bullet.transform.GetChild(j).gameObject.SetActive(true);
+                }
+
                 //5. 반복문 종료
                 break;
             }
         }
     }
-
-
-
-
- 
 }

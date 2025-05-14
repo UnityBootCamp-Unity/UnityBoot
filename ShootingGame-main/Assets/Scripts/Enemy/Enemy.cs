@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public Action onDead;
     Vector3 dir; //움직일 방향
 
-    private bool non_to_player = false;
+    private float directionChangeCooldown = 0f;
 
     public void Die()
     {
@@ -26,8 +26,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        //MoveToPlayer();
-        Vector3 dir = Vector3.down;
+        directionChangeCooldown -= Time.deltaTime;
+        if (directionChangeCooldown < 0f)
+        {
+            MoveToPlayer();
+            directionChangeCooldown = 3.0f;
+        }
+        //Vector3 dir = Vector3.down;
 
         //transform.Translate(dir * speed * Time.deltaTime);
         transform.position += dir * speed * Time.deltaTime;
@@ -50,7 +55,8 @@ public class Enemy : MonoBehaviour
         else
         {
             //플레이어도 비활성화로 처리할거면 거기에 맞게 수정할 것
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
         //Destroy(gameObject);
         Die();
@@ -72,7 +78,7 @@ public class Enemy : MonoBehaviour
     {
         int randValue = UnityEngine.Random.Range(0, 10); // 0 ~ 9
         //플레이어 방향으로 이동
-        if (randValue < 7 && non_to_player == false) // 0 1 2
+        if (randValue < 7) // 0 1 2
         {
             //게임 씬에서 "Player"를 검색합니다.
             //var target = GameObject.Find("Player");
@@ -81,18 +87,11 @@ public class Enemy : MonoBehaviour
             //일반화를 통해 균일하게 이동하도록 처리
             //방향의 크기를 1로 설정
             dir.Normalize();
+            dir.y = -1;
         }
-        else if(randValue >= 7 && non_to_player == false) //아래로 이동
+        else if(randValue >= 7) //아래로 이동
         {
             dir = Vector3.down;
-            StartCoroutine(GoDown());
         }
-    }
-
-    IEnumerator GoDown()
-    {
-        non_to_player = false;
-        yield return new WaitForSeconds(3.0f);
-        non_to_player = true;
     }
 }

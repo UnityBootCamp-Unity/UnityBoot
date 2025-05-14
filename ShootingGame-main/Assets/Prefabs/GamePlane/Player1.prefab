@@ -248,7 +248,6 @@ GameObject:
   - component: {fileID: 8202490549399568076}
   - component: {fileID: 5380444663407914679}
   - component: {fileID: 8742256049439041974}
-  - component: {fileID: 7603570868213162618}
   m_Layer: 7
   m_Name: Player1
   m_TagString: Player
@@ -342,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletFactory: {fileID: 7470932254337723726, guid: 57cb0d0e1483ead4dbad875d3a36f60d, type: 3}
   firePosition: {fileID: 204889338445401702}
-  poolSize: 10
+  poolSize: 20
   bulletObjectPool: []
 --- !u!114 &5380444663407914679
 MonoBehaviour:
@@ -380,19 +379,3 @@ CapsuleCollider:
   m_Height: 5.836926
   m_Direction: 1
   m_Center: {x: 0, y: 1.1720083, z: 0.07636464}
---- !u!114 &7603570868213162618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8257616812481857482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa4eff5df205cd14aa09dd43b0c8f353, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletFactory: {fileID: 7470932254337723726, guid: 57cb0d0e1483ead4dbad875d3a36f60d, type: 3}
-  firePosition: {fileID: 204889338445401702}
-  poolSize: 10
-  bulletObjectPool: []
