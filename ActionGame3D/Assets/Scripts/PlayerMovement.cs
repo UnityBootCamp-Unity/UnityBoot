@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     float lastAttackTime, lastSkillTime, lastDashTime;
     public bool attacking = false;
     public bool dashing = false;
+    public bool skilling = false;
 
 
     //UI의 컨트롤러를 배치해서 그 컨트롤러로 이동을 진행해볼 예정
@@ -47,8 +48,7 @@ public class PlayerMovement : MonoBehaviour
                 //애니메이터의 파라미터 중에서 SetTrigger는
                 //설정하는 것으로 조건을 바로 만족하게 됩니다.
                 //수행 끝나면 끝
-
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(0.3f);
             }
         }
     }
@@ -62,11 +62,14 @@ public class PlayerMovement : MonoBehaviour
     public void OnAttackUp()
     {
         attacking = false;
+        animator.SetBool("Combo", false);
+        animator.ResetTrigger("Attack");
     }
     public void OnSkillDown()
     {
         if (Time.time - lastSkillTime > 1.0f)
         {
+ 
             animator.SetBool("Skill", true);
             lastSkillTime = Time.time;
         }
@@ -78,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnDashDown()
     {
         dashing = true;
+        animator.SetTrigger("Dash");
     }
     public void OnDashUp()
     {
@@ -91,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Stop();
+
         //애니메이터에 대한 연결이 진행되야 작동하도록 처리합니다.
         if (animator)
         {
@@ -113,11 +119,45 @@ public class PlayerMovement : MonoBehaviour
                 rbody.linearVelocity = speed;
 
                 //방향 전환
-                if(h != 0f && v != 0f)
+                if(h != 0f || v != 0f)
                 {
                     transform.rotation = Quaternion.LookRotation(new Vector3(h, 0f, v));
                 }
             }
+        }
+    }
+
+    private void Stop()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("BG_Skill"))
+        {
+            h = 0.0f;
+            v = 0.0f;
+            return;
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("BG_Attack00"))
+        {
+            h = 0.0f;
+            v = 0.0f;
+            return;
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("BG_Combo1_1"))
+        {
+            h = 0.0f;
+            v = 0.0f;
+            return;
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("BG_Combo1_2"))
+        {
+            h = 0.0f;
+            v = 0.0f;
+            return;
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("BG_Combo1_3"))
+        {
+            h = 0.0f;
+            v = 0.0f;
+            return;
         }
     }
 }

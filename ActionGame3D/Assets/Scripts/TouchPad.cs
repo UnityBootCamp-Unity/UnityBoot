@@ -1,25 +1,25 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class TouchPad : MonoBehaviour
 {
-    private RectTransform _touchPad; //UI À§Ä¡´Â RectTransform
+    private RectTransform _touchPad; //UI ìœ„ì¹˜ëŠ” RectTransform
 
-    private int _touchId = -1; //¹æÇâ ÄÁÆ®·Ñ·¯ ¿µ¿ª ¾È¿¡ ÀÖ´Â ÀÔ·Â ±¸ºĞ¿ë ¾ÆÀÌµğ
+    private int _touchId = -1; //ë°©í–¥ ì»¨íŠ¸ë¡¤ëŸ¬ ì˜ì—­ ì•ˆì— ìˆëŠ” ì…ë ¥ êµ¬ë¶„ìš© ì•„ì´ë””
 
-    private Vector3 _startPos = Vector3.zero; //ÀÔ·Â ½ÃÀÛ ÁÂÇ¥
+    private Vector3 _startPos = Vector3.zero; //ì…ë ¥ ì‹œì‘ ì¢Œí‘œ
 
-    public float _dragRadius = 60.0f; //¹æÇâ ÄÁÆ®·Ñ·¯ ¿ø ¿òÁ÷ÀÓ¿ë ¹İÁö¸§
+    public float _dragRadius = 60.0f; //ë°©í–¥ ì»¨íŠ¸ë¡¤ëŸ¬ ì› ì›€ì§ì„ìš© ë°˜ì§€ë¦„
 
-    public PlayerMovement _player; //¹æÇâÅ° º¯°æ¿¡ µû¶ó Ä³¸¯ÅÍ¿¡°Ô Àü´Ş
+    public PlayerMovement _player; //ë°©í–¥í‚¤ ë³€ê²½ì— ë”°ë¼ ìºë¦­í„°ì—ê²Œ ì „ë‹¬
 
-    private bool _buttonPressed = false; //¹öÆ° ´­¸² ¿©ºÎ
+    private bool _buttonPressed = false; //ë²„íŠ¼ ëˆŒë¦¼ ì—¬ë¶€
 
     private void Start()
     {
-        //¿ÀºêÁ§Æ® ¿¬°á
+        //ì˜¤ë¸Œì íŠ¸ ì—°ê²°
         _touchPad = GetComponent<RectTransform>();
-        //ÅÍÄ¡ ÆĞµå ÁÂÇ¥ (±âÁØ °ª)
+        //í„°ì¹˜ íŒ¨ë“œ ì¢Œí‘œ (ê¸°ì¤€ ê°’)
         _startPos = _touchPad.position;
     }
 
@@ -31,43 +31,64 @@ public class TouchPad : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Å©·Î½º ÇÃ·§Æû : ÇÃ·§Æû µû¶ó ÄÚµå ³ª´©±â
+        //í¬ë¡œìŠ¤ í”Œë«í¼ : í”Œë«í¼ ë”°ë¼ ì½”ë“œ ë‚˜ëˆ„ê¸°
 
-        //PC³ª ¿¡µğÅÍ »ó¿¡¼­ ½ÇÇàÇÏ´Â °æ¿ì¿¡ ´ëÇÑ ¼³Á¤
+        //PCë‚˜ ì—ë””í„° ìƒì—ì„œ ì‹¤í–‰í•˜ëŠ” ê²½ìš°ì— ëŒ€í•œ ì„¤ì •
         #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE
         HandleTouchInput(Input.mousePosition);
-        #else
+        HandleKeyboardInput(); // í‚¤ë³´ë“œ ì…ë ¥ ì²˜ë¦¬ ì¶”ê°€
+#else
             HandleTouchInput();
-        #endif
+#endif
     }
 
-    //¸Ş¼Òµå ¿À¹ö·Îµù(Method Overloading)
-    //¸Ş¼ÒµåÀÇ ¸Å°³º¯¼ö ¸®½ºÆ®(½Ã±×´ÏÃ³)°¡ ´Ù¸¦ °æ¿ì, ÀÌ¸§ÀÌ °°¾Æµµ ´Ù¸¥ ÇÔ¼ö·Î Ãë±ŞÇÕ´Ï´Ù.
+    private void HandleKeyboardInput()
+    {
+        if (_buttonPressed) return; // í„°ì¹˜ ì¤‘ì´ë©´ í‚¤ë³´ë“œ ì…ë ¥ ë¬´ì‹œ
+
+        float horizontal = Input.GetAxisRaw("Horizontal"); // A/D or â†/â†’
+        float vertical = Input.GetAxisRaw("Vertical");     // W/S or â†‘/â†“
+
+        Vector2 inputDir = new Vector2(horizontal, vertical);
+
+        // ì •ê·œí™” (ëŒ€ê°ì„  ì´ë™ ì‹œ ì†ë„ ë³´ì •)
+        if (inputDir.sqrMagnitude > 1f)
+            inputDir.Normalize();
+
+        if (_player != null)
+        {
+            _player.OnStickChanged(inputDir);
+        }
+    }
+
+
+    //ë©”ì†Œë“œ ì˜¤ë²„ë¡œë”©(Method Overloading)
+    //ë©”ì†Œë“œì˜ ë§¤ê°œë³€ìˆ˜ ë¦¬ìŠ¤íŠ¸(ì‹œê·¸ë‹ˆì²˜)ê°€ ë‹¤ë¥¼ ê²½ìš°, ì´ë¦„ì´ ê°™ì•„ë„ ë‹¤ë¥¸ í•¨ìˆ˜ë¡œ ì·¨ê¸‰í•©ë‹ˆë‹¤.
     private void HandleTouchInput(Vector3 mousePosition)
     {
         if (_buttonPressed)
         {
-            //ÀÔ·Â¹ŞÀº ÁÂÇ¥ °è»ê
+            //ì…ë ¥ë°›ì€ ì¢Œí‘œ ê³„ì‚°
             Vector3 diff = mousePosition - _startPos;
 
-            //Vector3.Distance(a,b) : µÎ Á¡ °£ÀÇ °Å¸® °è»ê (Á¤±³ÇÑ °ª °è»ê)
-            //sqrMagnitude : °Å¸®ÀÇ Á¦°ö¿¡ ·çÆ®ÇÑ °ª (´Ü¼ø °è»ê) : Vector °£ÀÇ °Å¸® ºñ±³
+            //Vector3.Distance(a,b) : ë‘ ì  ê°„ì˜ ê±°ë¦¬ ê³„ì‚° (ì •êµí•œ ê°’ ê³„ì‚°)
+            //sqrMagnitude : ê±°ë¦¬ì˜ ì œê³±ì— ë£¨íŠ¸í•œ ê°’ (ë‹¨ìˆœ ê³„ì‚°) : Vector ê°„ì˜ ê±°ë¦¬ ë¹„êµ
             if(diff.sqrMagnitude > _dragRadius * _dragRadius)
             {
-                diff.Normalize(); //¹æÇâ º¤ÅÍ °Å¸® 1·Î ¼³Á¤
+                diff.Normalize(); //ë°©í–¥ ë²¡í„° ê±°ë¦¬ 1ë¡œ ì„¤ì •
 
-                //¹æÇâ ÄÜÆ®·Ñ·¯ ¿òÁ÷ÀÌ±â
+                //ë°©í–¥ ì½˜íŠ¸ë¡¤ëŸ¬ ì›€ì§ì´ê¸°
                 _touchPad.position = _startPos + diff * _dragRadius;
             }
             else
             {
-                //ÀÔ·Â ÁöÁ¡°ú ±âÁØ ÁÂÇ¥°¡ ÃÖ´ëÄ¡º¸´Ù Å©Áö ¾Ê´Ù¸é ÇöÀç ÀÔ·Â ÁÂÇ¥¿¡ ¹æÇâÅ° ÀÌµ¿
+                //ì…ë ¥ ì§€ì ê³¼ ê¸°ì¤€ ì¢Œí‘œê°€ ìµœëŒ€ì¹˜ë³´ë‹¤ í¬ì§€ ì•Šë‹¤ë©´ í˜„ì¬ ì…ë ¥ ì¢Œí‘œì— ë°©í–¥í‚¤ ì´ë™
                 _touchPad.position = mousePosition;
             }
 
-            //¹æÇâÅ°¿Í ±âÁØÁ¡ÀÇ Â÷ÀÌ¸¦ °è»ê
+            //ë°©í–¥í‚¤ì™€ ê¸°ì¤€ì ì˜ ì°¨ì´ë¥¼ ê³„ì‚°
             Vector3 distance = _touchPad.position - _startPos;
-            //¹æÇâ¸¸ µû·Î °è»ê
+            //ë°©í–¥ë§Œ ë”°ë¡œ ê³„ì‚°
             Vector2 normalDiff = new Vector3(distance.x / _dragRadius, distance.y / _dragRadius, distance.z / _dragRadius);
 
             if(_player != null)
@@ -84,6 +105,6 @@ public class TouchPad : MonoBehaviour
 
     private void HandleTouchInput()
     {
-        Debug.Log("¸ğ¹ÙÀÏ ºôµå");
+        Debug.Log("ëª¨ë°”ì¼ ë¹Œë“œ");
     }
 }
