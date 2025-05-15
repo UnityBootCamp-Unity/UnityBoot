@@ -25,6 +25,7 @@ public class Boss : MonoBehaviour
     public GameObject[] one_skill_pool; //2. 오브젝트 풀(배열 / 리스트)
     public GameObject[] one_skill_transform;
 
+
     private void OnEnable()
     {
         dir = Vector3.down;
@@ -124,31 +125,51 @@ public class Boss : MonoBehaviour
 
     public void Skill1()
     {
-        int shoot = UnityEngine.Random.Range(0, 5);
-         //1. 풀 사이즈만큼 반복
-        for (int i = 0; i < poolSize; i++)
+        int shoot = 0;
+        var target = GameObject.FindGameObjectWithTag("Player");
+        if (target != null)
         {
-            //2. 풀에 있는 총알 하나를 받아옵니다.
-            var bullet = one_skill_pool[i];
-
-            if(bullet.activeSelf == false)
-            {
-                //4. 발사 위치 조정
-                bullet.transform.position = one_skill_transform[shoot].transform.position;
-
-                //3. 비활성화일 경우 활성화를 진행합니다.
-                bullet.SetActive(true);
-
-                //  자식 오브젝트들 모두 다시 켜기
-                for (int j = 0; j < bullet.transform.childCount; j++)
-                {
-                    bullet.transform.GetChild(j).gameObject.SetActive(true);
-                }
-
-                //5. 반복문 종료
-                break;
-            }
+            if (target.transform.position.x > transform.position.x && target.transform.position.y > 2)
+                shoot = UnityEngine.Random.Range(0, 3);
+            else if(target.transform.position.x < transform.position.x && target.transform.position.y > 2)
+                shoot = UnityEngine.Random.Range(3, 6);
+            else
+                shoot = UnityEngine.Random.Range(0, 6);
         }
+        else
+        {
+            shoot = UnityEngine.Random.Range(0, 6);
+        }
+
+            //1. 풀 사이즈만큼 반복
+            for (int i = 0; i < poolSize; i++)
+            {
+                //2. 풀에 있는 총알 하나를 받아옵니다.
+                var bullet = one_skill_pool[i];
+
+                if (bullet.activeSelf == false)
+                {
+                    //4. 발사 위치 조정
+                    bullet.transform.position = one_skill_transform[shoot].transform.position;
+
+                    // 여기서 Boss 참조 넣어주기
+                    BossBullet1 bulletScript = bullet.GetComponent<BossBullet1>();
+                    bulletScript.boss = this;
+
+
+                    //3. 비활성화일 경우 활성화를 진행합니다.
+                    bullet.SetActive(true);
+
+                    //  자식 오브젝트들 모두 다시 켜기
+                    for (int j = 0; j < bullet.transform.childCount; j++)
+                    {
+                        bullet.transform.GetChild(j).gameObject.SetActive(true);
+                    }
+
+                    //5. 반복문 종료
+                    break;
+                }
+            }
         //switch (shoot)
         //{
         //    case 0:
