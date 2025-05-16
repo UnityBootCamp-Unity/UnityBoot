@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 879035784760774296}
   - component: {fileID: 8606992166961543768}
   - component: {fileID: 2082945853152684849}
+  - component: {fileID: 2062914631481801476}
   m_Layer: 0
   m_Name: Boss1
   m_TagString: Untagged
@@ -220,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 6474382891426749920}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.67546624, z: 0.73739094, w: 0}
-  m_LocalPosition: {x: 0.01, y: 12, z: 0}
+  m_LocalPosition: {x: 0.01, y: 12, z: 1}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -292,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afb65a8a1864244ab121d4f7393015e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 20
+  onePoolSize: 20
   one_skill_bullet: {fileID: 1648653093655000, guid: 258ae978c9905ee4dbd66464565342ff, type: 3}
   one_skill_pool: []
   one_skill_transform:
@@ -302,6 +303,35 @@ MonoBehaviour:
   - {fileID: 6113320373554831526}
   - {fileID: 2667027070334933803}
   - {fileID: 7076724292024254225}
+  twoPoolSize: 2
+  two_skill_bullet:
+  - {fileID: 2234447127743644795, guid: 98169b5c2297ff74c9ef154f830a585e, type: 3}
+  - {fileID: 4551695687021260325, guid: 4b0fce4d4ac92ba4cb78698fbf5cffdc, type: 3}
+  two_skill_pool: []
+  two_skill_transform:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!65 &2062914631481801476
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474382891426749920}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 72.40033, y: 50, z: 111}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7076724292024254225
 GameObject:
   m_ObjectHideFlags: 0
