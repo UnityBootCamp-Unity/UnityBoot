@@ -18,7 +18,7 @@ public class BossManager : MonoBehaviour
     {
         Instantiate(boss);
 
-        enemyManager.isBoss = true;
+        //enemyManager.isBoss = true;
     }
 
     public void OnDead()
