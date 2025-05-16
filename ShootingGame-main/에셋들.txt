@@ -1,0 +1,5 @@
+보스1 블렛 터지는 이펙트 : https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565
+보스1 스킬 타겟팅 : https://assetstore.unity.com/packages/3d/props/sfuture-targeting-83113
+
+각종 이펙트 : https://assetstore.unity.com/packages/vfx/particles/free-quick-effects-vol-1-304424
+각종 이펙트2(보스 블렛2 유력) : https://assetstore.unity.com/packages/vfx/free-15-full-opaque-spell-317208
