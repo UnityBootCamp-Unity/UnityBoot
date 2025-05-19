@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7594875425524125249}
   m_Layer: 0
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 4992553810640785275}
   serializedVersion: 2
   m_LocalRotation: {x: -0.03329333, y: 0.7063226, z: 0.7063226, w: 0.03329333}
-  m_LocalPosition: {x: 92.400024, y: 0, z: 108.2}
+  m_LocalPosition: {x: 92.400024, y: 10, z: 108.2}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -202,6 +202,10 @@ MonoBehaviour:
   flashSpeed: 5
   flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   sinkSpeed: 1
+  slimeColor: {r: 126, g: 255, b: 0, a: 255}
+  isDead: 0
+  isSinking: 0
+  damaged: 0
 --- !u!114 &509389357914923641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +269,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4992553810640785275}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
