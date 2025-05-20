@@ -1,17 +1,25 @@
+using System;
 using UnityEngine;
 namespace Assets.Scripts.Dialog {
-    public class DialogDataConfirm : MonoBehaviour
+    public class DialogDataConfirm : DialogData
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+
+        //프로퍼티
+        //1. 제목
+        //2. 내용
+        //3. 액션
+        public string Title { get; private set; }
+
+        public string Message { get; private set; }
+
+        public Action<bool> Callback { get; private set; }
+
+        //생성자
+        public DialogDataConfirm(string title, string message, Action<bool> callback = null) : base(DialogType.Confirm)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Title = title;
+            Message = message;
+            this.Callback = callback;
         }
     }
 }

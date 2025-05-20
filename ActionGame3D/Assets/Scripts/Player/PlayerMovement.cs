@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         attacking = false;
         animator.SetBool("Combo", false);
         animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Damage");
     }
     public void OnSkillDown()
     {
@@ -104,18 +105,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Stop();
+        Stop();
 
         //애니메이터에 대한 연결이 진행되야 작동하도록 처리합니다.
         if (animator)
         {
+            //상대적인 방향 계산, 캐릭터, 회전 /방향에 대한 처리
+    //------------------------------------------------------------------------------------------
             //이동 방향(조절)
             float back = 1;
             if (v < 0f)
                 back = -1f;
 
+
             animator.SetFloat("Speed", new Vector2(h,v).magnitude);
             //magnitude == 벡터의 길이, 크기
+
+            animator.SetFloat("Direction", back * (Mathf.Atan2(h, v) * Mathf.Rad2Deg));
+            //h , v 기준  back    position 
+            //0 , 1         1     front
+            //1, 0          1     right
+            //0, -1         -1    back
+            //-1, -1        -1    left
+    //------------------------------------------------------------------------------------------
 
             Rigidbody rbody = GetComponent<Rigidbody>();
 
@@ -168,7 +180,11 @@ public class PlayerMovement : MonoBehaviour
             v = 0.0f;
             return;
         }
-        h = 0.0f;
-        v = 0.0f;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage"))
+        {
+            h = 0.0f;
+            v = 0.0f;
+            return;
+        }
     }
 }

@@ -100,6 +100,12 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = true;
         isSinking = true;
         //Destroy(gameObject, 2.0f);
+        StartCoroutine(OffTimeActive());
+    }
+
+    IEnumerator OffTimeActive()
+    {
+        yield return new WaitForSeconds(2.0f);
         gameObject.SetActive(false);
     }
 }
