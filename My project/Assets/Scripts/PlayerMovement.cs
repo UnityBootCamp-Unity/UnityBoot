@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerStat
 {
     public float speed = 5.0f;          //플레이어의 이동 속도
-    public int count_of_harvest; //현재 수확물의 개수
+    //public int count_of_harvest; //현재 수확물의 개수(2025-50-23 : 인벤토리 로직 테스
+    //트로 인해 비활성화
 }
 
 public class PlayerMovement : MonoBehaviour
@@ -44,6 +45,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void SetAnimateSlash()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            animator.SetBool("Slash", true);
+            animator.SetFloat("horizontal", last.x);
+            animator.SetFloat("vertical", last.y);
+        }
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            animator.SetBool("Slash", false);
+            animator.SetFloat("horizontal", last.x);
+            animator.SetFloat("vertical", last.y);
+        }
+    }
+
     private void Update()
     {
         var h = Input.GetAxis("Horizontal");
@@ -52,13 +69,6 @@ public class PlayerMovement : MonoBehaviour
         SetAnimateMovement(dir);
         transform.position += dir * stat.speed * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            animator.SetBool("Slash", true);
-        }
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            animator.SetBool("Slash", false);
-        }
+        SetAnimateSlash();
     }
 }
