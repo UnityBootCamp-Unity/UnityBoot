@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item2;
+using Assets.Scripts.Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +52,7 @@ namespace Assets.Scripts.InventorySystem
             {
                 for(int i = 0; i < slots.Count; i++)
                 {
-                    if (player.Inventory.slots[i].type != CollectType.None)
+                    if (player.Inventory.slots[i].item_name != "")
                     {
                         //슬롯에 이미지와 개수 등을 갱신한다.
                         slots[i].SetSlot(player.Inventory.slots[i]);
@@ -65,8 +67,19 @@ namespace Assets.Scripts.InventorySystem
 
         public void Remove(int slot_idx)
         {
-            player.Inventory.Remove(slot_idx);
-            SlotRenewal();
+            //수확물
+            Item drop = GameManager.instance.ItemManager.
+                GetItem(player.Inventory.slots[slot_idx].item_name);
+
+            Debug.Log("Slot Type: " + player.Inventory.slots[slot_idx].item_name);
+
+            if (drop != null)
+            {
+                player.Drop(drop);
+                player.Inventory.Remove(slot_idx);
+                SlotRenewal();
+            }
+
         }
     }
 }

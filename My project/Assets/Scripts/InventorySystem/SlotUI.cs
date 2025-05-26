@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.InventorySystem
 {
-    public class SlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class SlotUI : MonoBehaviour
     {
         public Image slot_icon;
         public Text slot_count_text;
@@ -32,7 +32,7 @@ namespace Assets.Scripts.InventorySystem
             slot_count_text.text = "";
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        /*public void OnPointerEnter(PointerEventData eventData)
         {
             if (currentSlot != null)
             {
@@ -43,6 +43,6 @@ namespace Assets.Scripts.InventorySystem
         public void OnPointerExit(PointerEventData eventData)
         {
             ItemUI.Instance.Hide();
-        }
+        }*/
     }
 }

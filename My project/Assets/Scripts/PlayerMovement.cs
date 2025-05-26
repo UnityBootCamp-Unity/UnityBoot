@@ -49,26 +49,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            animator.SetBool("Slash", true);
-            animator.SetFloat("horizontal", last.x);
-            animator.SetFloat("vertical", last.y);
+            animator.SetTrigger("Slash");
         }
         if (Input.GetKeyUp(KeyCode.X))
         {
-            animator.SetBool("Slash", false);
-            animator.SetFloat("horizontal", last.x);
-            animator.SetFloat("vertical", last.y);
+            animator.ResetTrigger("Slash");
         }
     }
 
     private void Update()
     {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+        SetAnimateSlash();
+        if (state.IsName("Slash"))
+            return;
+
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
         Vector3 dir = new Vector2(h, v);
         SetAnimateMovement(dir);
-        transform.position += dir * stat.speed * Time.deltaTime;
 
-        SetAnimateSlash();
+        
+        
+        transform.position += dir * stat.speed * Time.deltaTime;
     }
 }

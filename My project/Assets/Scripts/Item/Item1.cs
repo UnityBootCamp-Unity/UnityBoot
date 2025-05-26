@@ -4,7 +4,7 @@ public enum Name
 {
 	Peach,
 }
-public class Item
+public class Item1
 {
     public string name;
     public string description;
@@ -12,7 +12,7 @@ public class Item
 
     private Sprite uiImage;
 
-    public Item(string name, Sprite uiImage)
+    public Item1(string name, Sprite uiImage)
     {
         this.name = name;
         this.uiImage = uiImage;

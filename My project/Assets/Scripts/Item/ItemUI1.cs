@@ -21,7 +21,7 @@ public class ItemUI : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void Show(Item item)
+    /*public void Show(Item item)
     {
         iconImage = item.GetImage();
         nameText.text = item.name;
@@ -32,5 +32,5 @@ public class ItemUI : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
-    }
+    }*/
 }
