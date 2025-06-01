@@ -397,7 +397,18 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Big Clouds Fixed_0: 6159701000111596775
+      Big Clouds Fixed_1: -1815111601458893980
+      Big Clouds Fixed_10: 4950635692373965356
+      Big Clouds Fixed_2: 1614314863478353811
+      Big Clouds Fixed_3: 241316832799465497
+      Big Clouds Fixed_4: -3633080432218042100
+      Big Clouds Fixed_5: 6188883836480049571
+      Big Clouds Fixed_6: 5331781415947598982
+      Big Clouds Fixed_7: 5192568974469264736
+      Big Clouds Fixed_8: 5682319519297370577
+      Big Clouds Fixed_9: -6315016242311677844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Enhanced Stars 1_0: -4886389337837078051
+      Enhanced Stars 1_1: 4258717078609113428
+      Enhanced Stars 1_2: 312571698492995236
+      Enhanced Stars 1_3: -7068058329166087669
+      Enhanced Stars 1_4: -9035487829397457338
+      Enhanced Stars 1_5: -930881998955843515
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

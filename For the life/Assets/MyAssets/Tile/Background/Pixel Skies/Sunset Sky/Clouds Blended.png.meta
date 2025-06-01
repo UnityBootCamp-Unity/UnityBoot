@@ -622,7 +622,27 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Clouds Blended_0: -5993892279229111381
+      Clouds Blended_1: 3064314404045797851
+      Clouds Blended_10: 4419085894057983305
+      Clouds Blended_11: -8480902989950561882
+      Clouds Blended_12: 7437347140449542016
+      Clouds Blended_13: 4710600617147490240
+      Clouds Blended_14: -3049581366602322210
+      Clouds Blended_15: 8931130267901227944
+      Clouds Blended_16: -8226962565671267964
+      Clouds Blended_17: -5254286088120696538
+      Clouds Blended_18: -8897025828787934864
+      Clouds Blended_19: -8630986847240782967
+      Clouds Blended_2: -5595550004036984779
+      Clouds Blended_3: 6138873127268356440
+      Clouds Blended_4: -8051518733475900910
+      Clouds Blended_5: 2413801155310666386
+      Clouds Blended_6: 4791553796352468738
+      Clouds Blended_7: -4592295848175788037
+      Clouds Blended_8: -6126418322513565368
+      Clouds Blended_9: -5437903952051429789
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

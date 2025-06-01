@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Moon Phases_0: -651109692163949756
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

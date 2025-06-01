@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c4f895a42196984cb47c87290314c74, type: 3}
+  m_Name: PurpleGhost
+  m_EditorClassIdentifier: 
+  unityName: PurpleGhost
+  maxHp: 40
+  currentHp: 40
+  moveSpeed: 3
+  enemyType: 3
+  skills:
+  - {fileID: 11400000, guid: 1481b74d71127cf4c8f69956a39ae4ca, type: 2}

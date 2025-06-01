@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Covered Moon Blended_0: 7879152677994648230
+      Covered Moon Blended_1: 7618591262443958677
+      Covered Moon Blended_2: 2705059300008051171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

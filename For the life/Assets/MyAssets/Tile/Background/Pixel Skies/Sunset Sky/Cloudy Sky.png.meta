@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Cloudy Sky_0: 6607081722420303089
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

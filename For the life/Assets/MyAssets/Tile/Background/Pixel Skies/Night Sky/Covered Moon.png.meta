@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Covered Moon_0: -7427702239846802306
+      Covered Moon_1: -7327002515278573069
+      Covered Moon_2: 7485652492138922840
+      Covered Moon_3: -440255042137962003
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

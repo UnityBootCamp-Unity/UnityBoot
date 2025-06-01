@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Night Pallettes_0: 6735532460979102791
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

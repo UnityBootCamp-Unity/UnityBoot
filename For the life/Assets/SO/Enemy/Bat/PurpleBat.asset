@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c4f895a42196984cb47c87290314c74, type: 3}
+  m_Name: PurpleBat
+  m_EditorClassIdentifier: 
+  unityName: PurpleBat
+  maxHp: 30
+  currentHp: 30
+  moveSpeed: 3
+  enemyType: 2
+  skills:
+  - {fileID: 11400000, guid: d03692ff6a5a2534c8f01fe3ed30f9f8, type: 2}
+  - {fileID: 11400000, guid: a91280057f823e54891c39b6a6504b03, type: 2}

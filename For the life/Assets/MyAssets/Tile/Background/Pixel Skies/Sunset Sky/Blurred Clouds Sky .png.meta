@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Blurred Clouds Sky _0: -7192877863268123450
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
