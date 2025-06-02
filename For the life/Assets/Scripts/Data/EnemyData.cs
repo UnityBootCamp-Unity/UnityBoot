@@ -8,7 +8,7 @@ public enum EnemyType
     Ghost,
 }
 
-[CreateAssetMenu(fileName = "", menuName = "Enemy/EnemyData", order = 0)]
+[CreateAssetMenu(fileName = "", menuName = "ScriptableObjects/EnemyData", order = 0)]
 public class EnemyData : ScriptableObject
 {
     public string unityName;

@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public int currentHp; //현재 HP
     public bool isDead = false; // 죽었는지 여부
     public bool isFacingRight = true; // 현재 적(자신)의 방향 (오른쪽을 바라보고 있는지 여부)
+    public bool isSelected = false; //몹이 선택되었는지 여부
 
     public float duration = 0.0f; // 적의 지속 시간
     public bool casting = false; // 적의 스킬 시전 여부
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>(); //적의 애니메이션 컨트롤러를 가져옴
 
         currentHp = enemyData.maxHp; //적의 현재 HP를 최대 HP로 초기화
+        isDead = false; //적의 죽음 상태 초기화
         skills = enemyData.skills; //적의 스킬을 초기화
         target = null; //타겟 초기화
         for(int i = 0; i < skills.Length; i++)
@@ -56,8 +58,6 @@ public class Enemy : MonoBehaviour
             return; //함수 종료
         }
 
-        if (casting || doing) return; //스킬 시전 중이거나 지속 중이면 함수 종료
-
         if (DefenseManager.instance.isTurning) //턴이 진행 중일 때
         {
             animator.SetBool("isMoving", false); // 이동중 애니메이션 해제
@@ -66,7 +66,9 @@ public class Enemy : MonoBehaviour
         }
         else if (!DefenseManager.instance.isTurning) //액션이 진행중일 때
         {
-            if (target.activeSelf == false || target == null) //타겟이 없으면
+            if (casting || doing) return; //스킬 시전 중이거나 지속 중이면 함수 종료
+
+            if (target == null || target.activeSelf == false) //타겟이 없으면
             {
                 target = FindClosestTarget(); //가장 가까운 플레이어를 찾음
             }
@@ -216,6 +218,11 @@ public class Enemy : MonoBehaviour
         skill.isTrueActive = true; //스킬 사용 가능 상태로 설정
     }
 
+    /// <summary>
+    /// 스킬의 시전 시간과 지속 시간을 처리하는 코루틴
+    /// </summary>
+    /// <param name="skill"></param>
+    /// <returns></returns>
     IEnumerator WaitSkillDuration(EnemySkill skill)
     {
         duration = skill.castTime; //스킬의 시전 시간 설정
@@ -247,5 +254,10 @@ public class Enemy : MonoBehaviour
             animator.SetTrigger("Finish"); //스킬 완료 애니메이션 트리거 설정
         }
         yield return null; //코루틴 종료
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+        this.isSelected = isSelected;
     }
 }

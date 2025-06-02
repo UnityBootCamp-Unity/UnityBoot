@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
+// 타겟이 대미지를 입었으면 여기서 충돌 확인 안하게 하기(Enable 시 다시 false로 초기화)
 public class EnemyAttackBox : MonoBehaviour
 {
     

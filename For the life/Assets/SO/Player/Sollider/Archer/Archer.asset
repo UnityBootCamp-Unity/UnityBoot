@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44e7b8f88d9e8542bda242bb8613269, type: 3}
+  m_Name: Archer
+  m_EditorClassIdentifier: 
+  unityName: Archer
+  maxHp: 60
+  currentHp: 60
+  maxMental: 100
+  currentMental: 100
+  moveSpeed: 5
+  playerType: 2
+  skills:
+  - {fileID: 11400000, guid: 5866a46c5734ee046bba7a2baa068c6b, type: 2}
+  - {fileID: 11400000, guid: 0bc261d2561589a4688e30977564f5db, type: 2}
+  - {fileID: 11400000, guid: 374fe1f6c5bf92d4085539ee8b61e426, type: 2}
+  EquipmentLevel: 0

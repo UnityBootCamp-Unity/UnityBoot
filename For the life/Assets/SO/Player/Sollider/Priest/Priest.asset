@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44e7b8f88d9e8542bda242bb8613269, type: 3}
+  m_Name: Priest
+  m_EditorClassIdentifier: 
+  unityName: Priest
+  maxHp: 80
+  currentHp: 80
+  maxMental: 120
+  currentMental: 120
+  moveSpeed: 2
+  playerType: 3
+  skills:
+  - {fileID: 11400000, guid: f0ae45c5cce4e544bb4823053b82883a, type: 2}
+  EquipmentLevel: 0
