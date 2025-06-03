@@ -47,9 +47,6 @@ public class DragSelectionBox : MonoBehaviour
         Vector2 min = Vector2.Min(startPos, endPos); //드래그 영역의 최소 좌표
         Vector2 max = Vector2.Max(startPos, endPos); //드래그 영역의 최대 좌표
 
-        // 기존 선택 해제
-        UnitSelectionManager.instance.DeselectAllPlayers();
-        UnitSelectionManager.instance.DeselectEnemy();
 
         foreach (var player in GameObject.FindObjectsByType<Player>(FindObjectsSortMode.None))
         {

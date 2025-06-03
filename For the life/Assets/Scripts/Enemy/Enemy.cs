@@ -16,17 +16,38 @@ public class Enemy : MonoBehaviour
     [Header("애니메이션")]
     public Animator animator; //적의 애니메이션 컨트롤러
 
+    [Header("몹 상태")]
+    public string unitName; // 플레이어의 이름
+    public int maxHp; // 최대 HP
     public int currentHp; //현재 HP
-    public bool isDead = false; // 죽었는지 여부
+    public string behavior; //몹의 행동 (예: 공격, 방어 등)
+    public bool isDead = false; //죽었는지 여부
+
     public bool isFacingRight = true; // 현재 적(자신)의 방향 (오른쪽을 바라보고 있는지 여부)
     public bool isSelected = false; //몹이 선택되었는지 여부
 
     public float duration = 0.0f; // 적의 지속 시간
     public bool casting = false; // 적의 스킬 시전 여부
     public bool doing = false; // 적의 스킬 지속 여부
+    public bool durationSkill; // 적의 스킬이 지속되는지 여부
 
     public GameObject target; //적의 타겟
 
+
+    private void Awake()
+    {
+        if (enemyData == null) //적의 데이터가 설정되지 않았다면
+        {
+            Debug.LogError("EnemyData is not assigned! Please assign it in the inspector."); //에러 메시지 출력
+        }
+        else
+        {
+            unitName = enemyData.unityName; //적의 이름 설정
+            maxHp = enemyData.maxHp; //적의 최대 HP 설정
+            currentHp = maxHp; //현재 HP를 최대 HP로 초기화
+            behavior = "idle"; //적의 행동 설정
+        }
+    }
 
     private void OnEnable()
     {
@@ -47,6 +68,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        Behavior(); //적의 행동 함수 호출
+
         if (isDead) return; //적이 죽었으면 함수 종료
 
         if (currentHp <= 0) //현재 HP가 0 이하이면
@@ -144,6 +167,7 @@ public class Enemy : MonoBehaviour
             if (skill.isTrueActive == false) return; //스킬이 사용할 수 없으면 종료
 
             enemyRangeBox[randomIndex].ReachCheck(skill); // 적의 원거리 체크
+            enemyAttackBox[randomIndex].SkillDamage(skill); // 적의 스킬 피해량 설정
 
             if (enemyRangeBox[randomIndex].isRange == true)
             {
@@ -204,6 +228,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f); //5 초 대기
         this.gameObject.SetActive(false); //적 오브젝트 비활성화
+        Dead();
     }
 
     /// <summary>
@@ -226,6 +251,7 @@ public class Enemy : MonoBehaviour
     IEnumerator WaitSkillDuration(EnemySkill skill)
     {
         duration = skill.castTime; //스킬의 시전 시간 설정
+        durationSkill = true; // 스킬이 지속되는 상태로 설정
         if (duration > 0.0f)
         {
             casting = true; //스킬 시전 중 상태로 설정
@@ -253,11 +279,39 @@ public class Enemy : MonoBehaviour
             doing = false; //스킬 지속 중 상태 해제
             animator.SetTrigger("Finish"); //스킬 완료 애니메이션 트리거 설정
         }
+        durationSkill = false; // 스킬 지속 상태 해제
         yield return null; //코루틴 종료
     }
 
     public void SetSelected(bool isSelected)
     {
         this.isSelected = isSelected;
+    }
+
+    /// <summary>
+    /// 몹의 행동을 정의하는 함수
+    /// </summary>
+    public void Behavior()
+    {
+        // 몹의 행동을 정의하는 로직을 여기에 추가할 수 있습니다.
+        // 예: 공격, 방어, 이동 등
+        Debug.Log($"{unitName} is currently {behavior}.");
+
+        if(isDead)
+            behavior = "dead"; //죽었을 때 행동 상태 변경
+        else if(casting)
+            behavior = "casting"; //스킬 시전 중 행동 상태 변경
+        else if (target != null)
+            behavior = "attacking"; //타겟이 존재할 때
+        else
+            behavior = "idle"; //기본 행동 상태 변경
+    }
+
+    public void Dead()
+    {
+        if (isDead)
+        {
+            gameObject.transform.position = new Vector3(-100, -100, -100); //죽었을 때 플레이어를 화면 밖으로 이동
+        }
     }
 }

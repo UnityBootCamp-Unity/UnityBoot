@@ -16,8 +16,18 @@ public class Player : MonoBehaviour
     [Header("애니메이션")]
     public Animator animator; //플레이어의 애니메이션 컨트롤러
 
+    [Header("플레이어 상태")]
+    public string unitName; // 플레이어의 이름
+    public int maxHp; // 최대 HP
     public int currentHp; //현재 HP
+    public int maxMental; // 최대 정신력
+    public int currentMental; // 현재 정신력
+    public string behavior; //플레이어의 행동 (예: 공격, 방어 등)
     public bool isDead = false; //죽었는지 여부
+    
+    /*public int EquipmentLevel; //플레이어의 장비 레벨
+    public int attackPower; //플레이어의 공격력*/
+
     public bool isFacingRight = true; //현재 플레이어(자신)의 방향 (오른쪽을 바라보고 있는지 여부)
     public bool isSelected = false; //플레이어가 선택되었는지 여부
 
@@ -27,8 +37,10 @@ public class Player : MonoBehaviour
     public float duration = 0.0f; //플레이어의 지속 시간
     public bool casting = false; //플레이어의 스킬 시전 여부
     public bool doing = false; //플레이어의 스킬 지속 여부
+    public bool durationSkill; // 적의 스킬이 지속되는지 여부
 
     public GameObject target; //플레이어의 타겟
+
 
     private void OnEnable()
     {
@@ -47,17 +59,38 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+
+        if (playerData == null) //플레이어 데이터가 설정되지 않았으면
+        {
+            Debug.LogError("PlayerData is not assigned! Please assign a PlayerData ScriptableObject to the Player component.");
+        }
+        else
+        {
+            unitName = playerData.unityName; //플레이어의 이름 설정
+            maxHp = playerData.maxHp; //플레이어의 최대 HP 설정
+            currentHp = maxHp; //플레이어의 현재 HP를 최대 HP로 초기화
+            maxMental = playerData.maxMental; //플레이어의 최대 정신력 설정
+            currentMental = maxMental; //플레이어의 현재 정신력을 최대 정신력으로 초기화
+            behavior = "Idle"; //플레이어의 초기 행동 상태 설정
+
+        }
+    }
+
     private void Update()
     {
         if (isDead) return; //플레이어가 죽었으면 함수 종료
 
-        if (currentHp <= 0) //현재 HP가 0 이하이면
+        if (currentHp <= 0)
         {
             isDead = true; //죽음 상태로 설정
-            Debug.Log($"{playerData.unityName} has died."); //죽음 메시지 출력
+            Debug.Log($"{unitName} has died.");
             animator.SetTrigger("Death"); //죽음 애니메이션 트리거 설정
             StartCoroutine(WaitForActiveFalse()); //5초 후에 플레이어 오브젝트 비활성화
             return; //함수 종료
+
         }
 
         if (DefenseManager.instance.isTurning) //턴이 진행 중일 때
@@ -173,6 +206,45 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// 체력이 가장 낮은 적을 찾는 함수
+    /// 자동 완성으로 아직 확인 안함
+    /// </summary>
+    /// <returns></returns>
+    GameObject FindLessHpTarget()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //적 오브젝트를 찾음
+        GameObject lessHpEnemy = null; //체력이 가장 낮은 적 초기화
+        int lessHp = int.MaxValue; //가장 낮은 체력 초기화
+        foreach (GameObject enemy in enemies)
+        {
+            Enemy enemyComponent = enemy.GetComponent<Enemy>(); //적 컴포넌트 가져오기
+            if (enemyComponent != null && enemyComponent.currentHp < lessHp) //적이 존재하고 현재 체력이 가장 낮으면
+            {
+                lessHp = enemyComponent.currentHp; //가장 낮은 체력 업데이트
+                lessHpEnemy = enemy; //체력이 가장 낮은 적 업데이트
+            }
+        }
+        return lessHpEnemy; //체력이 가장 낮은 적 반환
+    }
+
+    GameObject FindLessHpPlayer()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); //플레이어 오브젝트를 찾음
+        GameObject lessHpPlayer = null; //체력이 가장 낮은 플레이어 초기화
+        int lessHp = int.MaxValue; //가장 낮은 체력 초기화
+        foreach (GameObject player in players)
+        {
+            Player playerComponent = player.GetComponent<Player>(); //플레이어 컴포넌트 가져오기
+            if (playerComponent != null && playerComponent.currentHp < lessHp) //플레이어가 존재하고 현재 체력이 가장 낮으면
+            {
+                lessHp = playerComponent.currentHp; //가장 낮은 체력 업데이트
+                lessHpPlayer = player; //체력이 가장 낮은 플레이어 업데이트
+            }
+        }
+        return lessHpPlayer; //체력이 가장 낮은 플레이어 반환
+    }
+
+    /// <summary>
     /// 스킬 갯수까지 랜덤으로 선택해서 적이 범위에 있을 경우 공격한다.
     /// </summary>
     public void AttackTrigger()
@@ -188,6 +260,22 @@ public class Player : MonoBehaviour
             PlayerSkill skill = skills[randomIndex]; //선택된 스킬 가져오기
 
             if (skill.isTrueActive == false) return; //스킬이 사용할 수 없으면 종료
+
+            playerAttackBox[randomIndex].SkillDamage(skill); //스킬 피해량 설정(힐 포함)
+
+            if (skill.playerSkillType == PlayerSkillType.Heal && playerRangeBox[randomIndex].isRange == true)
+            {
+                //Heal 스킬은 공격하지 않음
+                Debug.Log($"{unitName} is healing instead of attacking.");
+                playerRangeBox[randomIndex].CheckHealBuffer(skill); //플레이어의 힐 버퍼 체크
+                playerAttackBox[randomIndex].SingleCheck(skill); //나의 힐 버퍼가 단일인지 멀티인지 확인
+
+                animator.SetTrigger("Heal" + (randomIndex + 1)); //힐 애니메이션 트리거 설정
+                StartCoroutine(WaitSkillDuration(skill)); //스킬 시전 및 지속 코루틴 시작
+                StartCoroutine(WaitSkillCooldown(skill)); //스킬 쿨타임 대기 코루틴 시작
+                cooldownTime = 3.0f; //공격의 쿨타임 설정
+                return;
+            }
 
             //playerRangeBox[randomIndex].ReachCheck(skill); // 플레이어의 원거리 체크
 
@@ -274,6 +362,7 @@ public class Player : MonoBehaviour
         skill.isTrueActive = false; //스킬을 사용할 수 없도록 설정
         yield return new WaitForSeconds(skill.cooldownTime); //스킬 쿨타임 대기
         skill.isTrueActive = true; //스킬을 사용할 수 있도록 설정
+        Dead();
     }
 
     /// <summary>
@@ -284,6 +373,7 @@ public class Player : MonoBehaviour
     IEnumerator WaitSkillDuration(PlayerSkill skill)
     {
         duration = skill.castTime; //스킬의 시전 시간 설정
+        durationSkill = true; // 스킬이 지속되는 상태로 설정
         if (duration > 0.0f)
         {
             casting = true; //스킬 시전 중 상태로 설정
@@ -313,7 +403,7 @@ public class Player : MonoBehaviour
         }
 
         //여기서 스킬별 쿨타임 코루틴 실행해도 괜찮을 듯?
-
+        durationSkill = false; // 스킬이 지속되는 상태로 설정
         yield return null; //코루틴 종료
     }
 
@@ -325,10 +415,40 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f); //5 초 대기
         this.gameObject.SetActive(false); //적 오브젝트 비활성화
+        Dead();
     }
 
     public void SetSelected(bool isSelected)
     {
         this.isSelected = isSelected;
+    }
+
+    /// <summary>
+    /// 플레이어의 행동을 정의하는 함수
+    /// </summary>
+    public void Behavior()
+    {
+        // 플레이어의 행동을 정의하는 로직을 여기에 추가할 수 있습니다.
+        // 예: 공격, 방어, 이동 등
+        Debug.Log($"{unitName} is currently {behavior}.");
+
+        if (isDead)
+            behavior = "dead"; //죽었을 때 행동 상태 변경
+        else if (casting)
+            behavior = "casting"; //스킬 시전 중 행동 상태 변경
+        else if (target != null)
+            behavior = "attacking"; //타겟이 존재할 때
+        else if (isMoving)
+            behavior = "moving"; //이동 중 행동 상태 변경
+        else
+            behavior = "idle"; //기본 행동 상태 변경
+    }
+
+    public void Dead()
+    {
+        if (isDead)
+        {
+            gameObject.transform.position = new Vector3(-100, -100, -100); //죽었을 때 플레이어를 화면 밖으로 이동
+        }
     }
 }

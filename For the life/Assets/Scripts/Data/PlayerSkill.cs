@@ -20,6 +20,7 @@ public class PlayerSkill : ScriptableObject
 {
     public string skillName;
     public int hpDamage;
+    public int mentalDamage;
     public float cooldownTime;
     public float castTime;
     public float durationTime;

@@ -6,9 +6,9 @@ public class UnitSelectionManager : MonoBehaviour
 {
     public static UnitSelectionManager instance; //싱글톤 인스턴스
 
-    private List<Player> selectedPlayers = new List<Player>(); //선택된 플레이어 목록
+    public List<Player> selectedPlayers = new List<Player>(); //선택된 플레이어 목록
 
-    private Enemy selectedEnemy;  // 적 선택도 관리
+    public Enemy selectedEnemy;  // 적 선택도 관리
 
     [Header("유닛이 있는 레이어")]
     public LayerMask playerLayer;
@@ -65,8 +65,11 @@ public class UnitSelectionManager : MonoBehaviour
                 Player clickedPlayer = hitPlayer.collider.GetComponent<Player>(); //Player 컴포넌트 가져오기
                 if (clickedPlayer != null)
                 {
-                    SelectPlayer(clickedPlayer);
+                    DeselectAllPlayers();
                     DeselectEnemy();
+
+                    // 만약 이미 선택된 플레이어가 있다면, 해당 플레이어를 선택 해제하고 새로 클릭한 플레이어를 선택
+                    SelectPlayer(clickedPlayer);
                     return;
                 }
             }
@@ -78,8 +81,11 @@ public class UnitSelectionManager : MonoBehaviour
                 Enemy clickedEnemy = hitEnemy.collider.GetComponent<Enemy>();
                 if (clickedEnemy != null)
                 {
+                    DeselectAllPlayers();
+                    DeselectEnemy();
+
+                    // 만약 이미 선택된 적이 있다면, 해당 적을 선택 해제하고 새로 클릭한 적을 선택
                     SelectEnemy(clickedEnemy);
-                    DeselectAllPlayers(); // 플레이어 다 선택 해제
                     return;
                 }
             }
@@ -87,6 +93,7 @@ public class UnitSelectionManager : MonoBehaviour
             // 아무것도 클릭 안하면 모든 선택 해제
             DeselectAllPlayers();
             DeselectEnemy();
+            
         }
 
 
