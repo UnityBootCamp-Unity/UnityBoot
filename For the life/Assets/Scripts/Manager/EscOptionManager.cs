@@ -23,6 +23,7 @@ public class EscOptionManager : MonoBehaviour
         else
         {
             Destroy(gameObject); // 이미 인스턴스가 존재하면 현재 객체를 파괴
+            Destroy(escMenu);
         }
     }
 
