@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44e7b8f88d9e8542bda242bb8613269, type: 3}
   m_Name: Father
   m_EditorClassIdentifier: 
-  unityName: Father
+  unityName: King
   maxHp: 200
   currentHp: 200
   maxMental: 150

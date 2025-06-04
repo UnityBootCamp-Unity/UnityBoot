@@ -15,7 +15,7 @@ MonoBehaviour:
   unityName: PurpleBat
   maxHp: 30
   currentHp: 30
-  moveSpeed: 3
+  moveSpeed: 4
   enemyType: 2
   skills:
   - {fileID: 11400000, guid: d03692ff6a5a2534c8f01fe3ed30f9f8, type: 2}

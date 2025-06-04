@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: SkeltonMace(SK1)
   m_EditorClassIdentifier: 
   skillName: SkeltonMace(Attack1)
-  hpDamage: 5
+  hpDamage: 4
   mentalDamage: 2
   cooldownTime: 3
   castTime: 0
+  durationTime: 0
   isTrueActive: 1
   enemySkillType: 1
   enemySkillReach: 1

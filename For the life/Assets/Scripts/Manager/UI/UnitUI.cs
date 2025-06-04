@@ -47,6 +47,11 @@ public class UnitUI : MonoBehaviour
             unitBehaviorText.text = "Behavior: " + selectedPlayer.behavior.ToString();
             unitTargetText.text = "Target: " + (selectedPlayer.target != null ? selectedPlayer.target.name : "None");
         }
+        else if(UnitSelectionManager.instance.selectedPlayers.Count > 1)
+        {
+            unitInfoPanel.SetActive(false);
+            return; // 단일 유닛이 선택되지 않은 경우 패널 비활성화
+        }
 
         /*// 다중 유닛 선택 여부 확인
         if (UnitSelectionManager.instance.selectedPlayers.Count > 1 && UnitSelectionManager.instance.selectedEnemy == null)

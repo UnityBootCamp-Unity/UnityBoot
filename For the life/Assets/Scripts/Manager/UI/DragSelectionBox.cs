@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DragSelectionBox : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class DragSelectionBox : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             startPos = Input.mousePosition; //드래그 시작 위치 저장

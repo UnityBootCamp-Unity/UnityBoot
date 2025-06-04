@@ -36,14 +36,13 @@ public class PlayerAttackBox : MonoBehaviour
             {
                 if (other.gameObject == player.target)
                 {
-                    Debug.Log($"PlayerAttackBox: Player in H1 range!"); //디버그 메시지 출력
                     Player player = other.GetComponent<Player>(); //플레이어 스크립트를 찾음
                     if(player != null && !playersInRange.Contains(player))
                         playersInRange.Add(player);
 
                     foreach (Player p in playersInRange)
                     {
-                        if (player.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
+                        if (player.currentHp <= 0) // 아군의 HP가 0보다 큰지 확인
                             continue;
 
                         if (player.currentHp >= player.maxHp)
@@ -61,7 +60,6 @@ public class PlayerAttackBox : MonoBehaviour
                 }
                 else if (player.target == null && other.gameObject.CompareTag("Player")) // 적 태그를 가진 오브젝트와 충돌했을 때
                 {
-                    Debug.Log($"PlayerAttackBox: Player in H2 range!"); //디버그 메시지 출력
                     Player player = other.GetComponent<Player>(); //플레이어 스크립트를 찾음
 
                     if (player != null && !playersInRange.Contains(player))
@@ -69,7 +67,7 @@ public class PlayerAttackBox : MonoBehaviour
 
                     foreach (Player p in playersInRange)
                     {
-                        if (player.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
+                        if (player.currentHp <= 0) // 아군의 HP가 0보다 큰지 확인
                             continue;
 
                         if (player.currentHp >= player.maxHp)
@@ -91,10 +89,12 @@ public class PlayerAttackBox : MonoBehaviour
             {
                 if (other.gameObject == player.target)
                 {
-                    Debug.Log($"PlayerAttackBox: Enemy in attack range!"); //디버그 메시지 출력
                     Enemy enemy = other.GetComponent<Enemy>(); //플레이어 스크립트를 찾음
                     if (enemy.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
+                    {
+                        player.target = null; // 타겟을 해제
                         return;
+                    }
 
                     if (enemy != null) //적이 존재하면
                     {
@@ -104,7 +104,6 @@ public class PlayerAttackBox : MonoBehaviour
                 }
                 else if (player.target == null && other.gameObject.CompareTag("Enemy")) // 적 태그를 가진 오브젝트와 충돌했을 때
                 {
-                    Debug.Log($"PlayerAttackBox: Enemy in attack range!"); //디버그 메시지 출력
                     Enemy enemy = other.GetComponent<Enemy>(); //플레이어 스크립트를 찾음
 
                     if (enemy.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
@@ -126,14 +125,13 @@ public class PlayerAttackBox : MonoBehaviour
             {
                 if (other.gameObject == player.target)
                 {
-                    Debug.Log($"PlayerAttackBox: Player in H1 range!"); //디버그 메시지 출력
                     Player player = other.GetComponent<Player>(); //플레이어 스크립트를 찾음
                     if (player != null && !playersInRange.Contains(player))
                         playersInRange.Add(player);
 
                     foreach (Player p in playersInRange)
                     {
-                        if (player.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
+                        if (player.currentHp <= 0) // 아군의 HP가 0보다 큰지 확인
                             continue;
 
                         if (player.currentHp >= player.maxHp)
@@ -151,7 +149,6 @@ public class PlayerAttackBox : MonoBehaviour
                 }
                 else if (player.target == null && other.gameObject.CompareTag("Player")) // 적 태그를 가진 오브젝트와 충돌했을 때
                 {
-                    Debug.Log($"PlayerAttackBox: Player in H2 range!"); //디버그 메시지 출력
                     Player player = other.GetComponent<Player>(); //플레이어 스크립트를 찾음
 
                     if (player != null && !playersInRange.Contains(player))
@@ -159,7 +156,7 @@ public class PlayerAttackBox : MonoBehaviour
 
                     foreach (Player p in playersInRange)
                     {
-                        if (player.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
+                        if (player.currentHp <= 0) // 아군의 HP가 0보다 큰지 확인
                             continue;
 
                         if (player.currentHp >= player.maxHp)
@@ -181,10 +178,12 @@ public class PlayerAttackBox : MonoBehaviour
             {
                 if (other.gameObject == player.target)
                 {
-                    Debug.Log($"PlayerAttackBox: Enemy in attack range!"); //디버그 메시지 출력
                     Enemy enemy = other.GetComponent<Enemy>(); //플레이어 스크립트를 찾음
                     if (enemy.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
+                    {
+                        player.target = null; // 타겟을 해제
                         return;
+                    }
 
                     if (enemy != null) //적이 존재하면
                     {
@@ -194,7 +193,6 @@ public class PlayerAttackBox : MonoBehaviour
                 }
                 else if (player.target == null && other.gameObject.CompareTag("Enemy")) // 적 태그를 가진 오브젝트와 충돌했을 때
                 {
-                    Debug.Log($"PlayerAttackBox: Enemy in attack range!"); //디버그 메시지 출력
                     Enemy enemy = other.GetComponent<Enemy>(); //플레이어 스크립트를 찾음
 
                     if (enemy.currentHp <= 0) // 적의 HP가 0보다 큰지 확인
@@ -268,6 +266,5 @@ public class PlayerAttackBox : MonoBehaviour
     {
         successAttack = false;
         isSingleAttack = false;
-        Debug.Log("Collider enabled → 공격 정보 초기화됨");
     }
 }

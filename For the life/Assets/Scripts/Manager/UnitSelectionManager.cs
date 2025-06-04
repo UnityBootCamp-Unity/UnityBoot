@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class UnitSelectionManager : MonoBehaviour
@@ -13,6 +14,10 @@ public class UnitSelectionManager : MonoBehaviour
     [Header("유닛이 있는 레이어")]
     public LayerMask playerLayer;
     public LayerMask enemyLayer;
+
+    [Header("막힌 레이어")]
+    public LayerMask obstacleLayer; //장애물 레이어 (적과 플레이어가 아닌 것들)
+    public LayerMask outLineLayer; //아웃라인 레이어 (적과 플레이어가 아닌 것들)
 
     /*//드래그 선택용 변수
     private Vector2 dragStartPos; //드래그 시작 위치
@@ -55,7 +60,6 @@ public class UnitSelectionManager : MonoBehaviour
         //마우스 왼쪽 클릭 (선택 or 선택 해제)
         if (Input.GetMouseButtonDown(0))
         {
-
             //클릭 시 Player 레이어에서 Raycast를 사용하여 유닛을 선택
             RaycastHit2D hitPlayer = Physics2D.Raycast(mousePos, Vector2.zero, 0f, playerLayer);
 
@@ -111,6 +115,30 @@ public class UnitSelectionManager : MonoBehaviour
             if (selectedPlayers.Count > 0)
             {
                 Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                //클릭 시 Enemy 레이어에서 Raycast를 사용하여 유닛을 선택
+                RaycastHit2D hitEnemy = Physics2D.Raycast(mousePos, Vector2.zero, 0f, enemyLayer);
+                RaycastHit2D hitObstacle = Physics2D.Raycast(mousePos, Vector2.zero, 0f, obstacleLayer);
+                RaycastHit2D hitOutLine = Physics2D.Raycast(mousePos, Vector2.zero, 0f, outLineLayer);
+
+                if (hitObstacle.collider != null || hitOutLine.collider != null)
+                {
+                    //장애물이나 아웃라인이 클릭되었을 때는 이동하지 않음
+                    Debug.Log("Clicked on obstacle or outline, movement cancelled.");
+                    return;
+                }
+
+                //적이 클릭 되었을 때
+                if (hitEnemy.collider != null)
+                {
+                    GameObject enemyObject = hitEnemy.collider.gameObject; // 충돌된 적 GameObject 가져오기
+
+                    foreach (Player player in selectedPlayers)
+                    {
+                        player.target = enemyObject; //선택된 플레이어의 타겟을 클릭한 적으로 설정
+                    }
+                    return;
+                }
+
                 /*foreach (Player player in selectedPlayers)
                 {
                     player.MoveTo(mouseWorldPos); //선택된 모든 플레이어 이동

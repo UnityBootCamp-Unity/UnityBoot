@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -22,6 +21,8 @@ public class Enemy : MonoBehaviour
     public int currentHp; //현재 HP
     public string behavior; //몹의 행동 (예: 공격, 방어 등)
     public bool isDead = false; //죽었는지 여부
+    
+    public float moveSpeed; //적의 이동 속도
 
     public bool isFacingRight = true; // 현재 적(자신)의 방향 (오른쪽을 바라보고 있는지 여부)
     public bool isSelected = false; //몹이 선택되었는지 여부
@@ -46,6 +47,7 @@ public class Enemy : MonoBehaviour
             maxHp = enemyData.maxHp; //적의 최대 HP 설정
             currentHp = maxHp; //현재 HP를 최대 HP로 초기화
             behavior = "idle"; //적의 행동 설정
+            moveSpeed = enemyData.moveSpeed; //적의 이동 속도 설정
         }
     }
 
@@ -138,6 +140,10 @@ public class Enemy : MonoBehaviour
 
         foreach (var player in players) //모든 플레이어를 순회하면서
         {
+            Player player1 = player.GetComponent<Player>(); //플레이어 스크립트를 가져옴
+            if (player1 == null || player1.currentHp <= 0) //플레이어가 없거나 현재 HP가 0 이하이면
+                continue; //다음 플레이어로 넘어감
+
             float distance = Vector2.Distance(transform.position, player.transform.position); //현재 적과 플레이어 간의 거리 계산
             if (distance < closestDistance) //가장 가까운 거리를 찾기 위한 조건
             {
@@ -191,8 +197,8 @@ public class Enemy : MonoBehaviour
         Vector2 currentPosition = transform.position; //현재 몹(자신)의 위치
         Vector2 targetPosition = target.transform.position; //타겟(플레이어)의 위치
         Vector2 direction = (targetPosition - currentPosition).normalized; //타겟 방향 벡터 계산
-        float moveSpeed = enemyData.moveSpeed * Time.deltaTime; //이동 속도 계산
-        transform.position = Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed); //현재 위치에서 타겟 위치로 이동
+        float currnetMoveSpeed = moveSpeed * Time.deltaTime; //이동 속도 계산
+        transform.position = Vector2.MoveTowards(currentPosition, targetPosition, currnetMoveSpeed); //현재 위치에서 타겟 위치로 이동
 
         /*animator.SetFloat("MoveX", direction.x); //애니메이션 이동 방향 설정
         animator.SetFloat("MoveY", direction.y); //애니메이션 이동 방향 설정*/
@@ -313,5 +319,28 @@ public class Enemy : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(-100, -100, -100); //죽었을 때 플레이어를 화면 밖으로 이동
         }
+    }
+
+    /// <summary>
+    /// 적의 능력치를 하향 조정하는 함수
+    /// 특정 턴을 넘기고 아침이 될 시 능력치를 하향 조정합니다.
+    /// </summary>
+    /// <param name="hpFactor"> hp 조정 </param>
+    /// <param name="speedFactor"> 이속 조정 </param>
+    /// <param name="damageFactor"> 대미지 조정</param>
+    public void NerfStats(float hpFactor, float speedFactor)
+    {
+        // 체력 하향
+        maxHp = Mathf.FloorToInt(maxHp * hpFactor); // 최대 체력 하향 조정
+        //currentHp = Mathf.Min(currentHp, maxHp); // 현재 체력도 최대 체력 이하로 조정
+        currentHp = Mathf.FloorToInt(currentHp * hpFactor); // 현재 체력도 하향 조정
+
+        // 이동 속도 하향
+        if (enemyData != null)
+        {
+            moveSpeed *= speedFactor;
+        }
+
+        Debug.Log($"{unitName} 능력치 하향됨: 체력 {maxHp}, 속도 {enemyData.moveSpeed}");
     }
 }

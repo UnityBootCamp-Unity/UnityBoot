@@ -103,8 +103,8 @@ public class EnemyAttackBox : MonoBehaviour
 
     public void SkillDamage(EnemySkill skill)
     {
-        hpDamage = skill.hpDamage; //스킬의 HP 피해량 설정
-        mentalDamage = skill.mentalDamage; //스킬의 정신력 피해량 설정
+        hpDamage = Mathf.RoundToInt(skill.hpDamage * DefenseManager.instance.damageWeakening); //스킬의 HP 피해량 설정 //약화된만큼 반올림(약화 아닐 시 1)
+        mentalDamage = Mathf.RoundToInt(skill.mentalDamage * DefenseManager.instance.damageWeakening); //스킬의 정신력 피해량 설정
         skillType = skill.enemySkillType; //스킬 타입 설정
     }
 

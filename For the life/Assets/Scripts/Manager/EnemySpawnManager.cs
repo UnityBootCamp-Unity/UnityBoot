@@ -7,7 +7,8 @@ public class EnemySpawnManager : MonoBehaviour
     public GameObject[] monsterPrefabs; //몬스터 프리팹 배열
     public Transform[] spawnPoints; //몬스터 소환 위치 배열
     public int initialPoolSizePerType = 10; //각 몬스터 종류별 초기 풀 크기
-    public float spawnInterval = 3f; //몬스터 소환 간격 (초)
+    public float spawnInterval = 2f; //몬스터 소환 간격 (초)
+    public float spawnTime = 0f; //소환 타이머
 
     public Transform poolParent; //빈 오브젝트를 할당할 변수 (Hierarchy에서 연결)
 
@@ -40,14 +41,17 @@ public class EnemySpawnManager : MonoBehaviour
             return; //턴 진행 중일때는 중지
         }
 
+        if (DefenseManager.instance.turnCount >= DefenseManager.instance.maxTurnCount)
+            return; //최대 턴 수에 도달하면 몬스터 소환 중지
+
         // 몬스터 소환 간격에 따라 몬스터를 소환
-        if (spawnInterval <= 0)
+        if (spawnTime <= 0)
         {
             SpawnMonster();
-            spawnInterval = 3f; // 소환 간격 초기화
+            spawnTime = spawnInterval; // 소환 간격 초기화
         }
 
-        spawnInterval -= Time.deltaTime;
+        spawnTime -= Time.deltaTime;
     }
 
     private void SpawnMonster()

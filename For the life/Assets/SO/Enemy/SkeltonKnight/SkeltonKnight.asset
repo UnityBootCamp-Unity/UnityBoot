@@ -15,9 +15,8 @@ MonoBehaviour:
   unityName: SkeltonKnight
   maxHp: 100
   currentHp: 100
-  moveSpeed: 1
+  moveSpeed: 3
   enemyType: 1
   skills:
   - {fileID: 11400000, guid: 39b9ceda4781e544ca4484cbf09819aa, type: 2}
   - {fileID: 11400000, guid: 1605ee444dd6f064eb403df553e1146a, type: 2}
-  target: {fileID: 0}

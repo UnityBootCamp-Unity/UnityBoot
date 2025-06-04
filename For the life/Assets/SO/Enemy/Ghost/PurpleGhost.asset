@@ -15,7 +15,7 @@ MonoBehaviour:
   unityName: PurpleGhost
   maxHp: 40
   currentHp: 40
-  moveSpeed: 3
+  moveSpeed: 4
   enemyType: 3
   skills:
   - {fileID: 11400000, guid: 1481b74d71127cf4c8f69956a39ae4ca, type: 2}

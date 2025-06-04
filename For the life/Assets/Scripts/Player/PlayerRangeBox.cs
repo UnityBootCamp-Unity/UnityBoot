@@ -23,7 +23,6 @@ public class PlayerRangeBox : MonoBehaviour
     {
         if (healBuffer)
         {
-            Debug.Log($"[RangeBox] 충돌 대상 태그: {other.tag}");
             if (other.gameObject == player.target) //플레이어 태그를 가진 오브젝트와 충돌했을 때
             {
                 Player targetPlayer = other.GetComponent<Player>(); //플레이어 스크립트를 찾음

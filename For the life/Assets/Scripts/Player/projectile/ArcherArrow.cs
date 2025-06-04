@@ -38,6 +38,7 @@ public class ArcherArrow : MonoBehaviour
                 enemy.currentHp -= damage;
             }
             // 화살 제거
+            Destroy(gameObject);
             gameObject.SetActive(false);
         }
     }
@@ -57,7 +58,7 @@ public class ArcherArrow : MonoBehaviour
         // 타겟이 없으면 비활성화
         if (target == null)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             return;
         }
         // 타겟 방향으로 회전
@@ -80,6 +81,11 @@ public class ArcherArrow : MonoBehaviour
         float closestDistance = Mathf.Infinity; //가장 가까운 거리 초기화
         foreach (GameObject enemy in enemies)
         {
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+
+            if (enemyScript == null || enemyScript.currentHp <= 0) //적이 없거나 HP가 0 이하인 경우 무시
+                continue;
+
             float distance = Vector2.Distance(transform.position, enemy.transform.position); //플레이어와 적 사이의 거리 계산
             if (distance < closestDistance) //가장 가까운 적을 찾음
             {

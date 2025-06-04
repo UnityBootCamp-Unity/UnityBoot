@@ -15,8 +15,7 @@ MonoBehaviour:
   unityName: SkeltonMace
   maxHp: 100
   currentHp: 100
-  moveSpeed: 1
+  moveSpeed: 2
   enemyType: 1
   skills:
   - {fileID: 11400000, guid: ceeb0928e78ec6c4d84c9f441072db6b, type: 2}
-  target: {fileID: 0}

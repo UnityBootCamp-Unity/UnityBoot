@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     /*public int EquipmentLevel; //플레이어의 장비 레벨
     public int attackPower; //플레이어의 공격력*/
 
-    public bool isFacingRight = true; //현재 플레이어(자신)의 방향 (오른쪽을 바라보고 있는지 여부)
+    public bool isFacingRight = false; //현재 플레이어(자신)의 방향 (오른쪽을 바라보고 있는지 여부)
     public bool isSelected = false; //플레이어가 선택되었는지 여부
 
     private Vector3 moveTargetPosition; //플레이어의 이동 목표 위치
@@ -83,6 +83,11 @@ public class Player : MonoBehaviour
     {
         if (isDead) return; //플레이어가 죽었으면 함수 종료
 
+        if (currentHp > maxHp) //현재 HP가 최대 HP보다 크면
+        {
+            currentHp = maxHp; //현재 HP를 최대 HP로 설정
+        }
+
         if (currentHp <= 0)
         {
             isDead = true; //죽음 상태로 설정
@@ -91,6 +96,15 @@ public class Player : MonoBehaviour
             StartCoroutine(WaitForActiveFalse()); //5초 후에 플레이어 오브젝트 비활성화
             return; //함수 종료
 
+        }
+
+        if (target != null)
+        {
+            Enemy enemyComponent = target.GetComponent<Enemy>();
+            if (enemyComponent == null || enemyComponent.currentHp <= 0 || !target.activeSelf)
+            {
+                target = null; // 죽었거나 비활성화되면 타겟 초기화
+            }
         }
 
         if (DefenseManager.instance.isTurning) //턴이 진행 중일 때
@@ -160,6 +174,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
+
                     bool inRange = false; //타겟 범위 여부 초기화
                     for (int i = 0; i < playerRangeBox.Length; i++) //모든 범위 박스를 순회하면서
                     {
@@ -194,6 +209,11 @@ public class Player : MonoBehaviour
         float closestDistance = Mathf.Infinity; //가장 가까운 거리 초기화
         foreach (GameObject enemy in enemies)
         {
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+
+            if (enemyScript == null || enemyScript.currentHp <= 0) //적이 없거나 HP가 0 이하인 경우 무시
+                continue;
+
             float distance = Vector2.Distance(transform.position, enemy.transform.position); //플레이어와 적 사이의 거리 계산
             if (distance < closestDistance) //가장 가까운 적을 찾음
             {
@@ -359,10 +379,9 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     IEnumerator WaitSkillCooldown(PlayerSkill skill)
     {
-        skill.isTrueActive = false; //스킬을 사용할 수 없도록 설정
+        //skill.isTrueActive = false; //스킬을 사용할 수 없도록 설정
         yield return new WaitForSeconds(skill.cooldownTime); //스킬 쿨타임 대기
         skill.isTrueActive = true; //스킬을 사용할 수 있도록 설정
-        Dead();
     }
 
     /// <summary>

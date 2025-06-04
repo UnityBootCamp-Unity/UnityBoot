@@ -17,6 +17,7 @@ MonoBehaviour:
   mentalDamage: 3
   cooldownTime: 1
   castTime: 0
+  durationTime: 0
   isTrueActive: 1
   enemySkillType: 1
   enemySkillReach: 1
