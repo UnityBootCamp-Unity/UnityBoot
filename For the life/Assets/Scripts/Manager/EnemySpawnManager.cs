@@ -7,7 +7,7 @@ public class EnemySpawnManager : MonoBehaviour
     public GameObject[] monsterPrefabs; //몬스터 프리팹 배열
     public Transform[] spawnPoints; //몬스터 소환 위치 배열
     public int initialPoolSizePerType = 10; //각 몬스터 종류별 초기 풀 크기
-    public float spawnInterval = 2f; //몬스터 소환 간격 (초)
+    public float spawnInterval; //몬스터 소환 간격 (초)
     public float spawnTime = 0f; //소환 타이머
 
     public Transform poolParent; //빈 오브젝트를 할당할 변수 (Hierarchy에서 연결)

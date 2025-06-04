@@ -22,6 +22,7 @@ public class DefenseManager : MonoBehaviour
     public Button endTurnButton; // 턴 종료 버튼
     public Button clearGameButton; // 클리어 버튼 (모든 적이 비활성화되면 활성화됨)
     public Text turnCountText; // 현재 턴 수 텍스트
+    public GameObject DeadUI;
 
     private void Start()
     {
@@ -35,10 +36,23 @@ public class DefenseManager : MonoBehaviour
         {
             Destroy(gameObject); // 이미 인스턴스가 존재하면 현재 객체를 파괴
         }
+
+        DeadUI.SetActive(false); // 죽음 UI 비활성화
     }
 
     private void Update()
     {
+        // 왕이 죽을 시 게임 오버
+        GameObject king = GameObject.Find("King");
+        Player player = king.GetComponent<Player>();
+
+        if (player.isDead == true || king.activeSelf == false)
+        {
+            isTurning = true;
+            DeadUI.SetActive(true);
+            return;
+        }
+
         //액션 턴이 진행 중일 때 타이머 업데이트
         if (!isTurning)
         {
